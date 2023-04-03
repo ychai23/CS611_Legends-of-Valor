@@ -308,9 +308,22 @@ public class Hero{
     public void displayInventory(){
         this.inventory.display();
     }
+    
+    public boolean inRange(World w, Monster m){
+        // determine if a monster is in range (neighbor grids of the hero)
+        return true;
+    }
 
-    public void teleport(){
-        // teleport...
+    public void move(World w){
+        // move the hero on the map
+    }
+
+    public void teleport(World w){
+        // teleport a hero to move to a space adjacent to a target hero in a different lane.
+    }
+
+    public void recall(World w){
+        // return to their specific Nexus (where they originally spawned)
     }
 
 
