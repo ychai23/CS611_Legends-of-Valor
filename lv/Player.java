@@ -12,8 +12,8 @@ public class Player{
     private int[] position = {0,0};
     private Control control;
     private HerosInfo herosFactory;
-    private HerosInfo teamHerosInfo;
     private int status = 1;
+    private boolean win = false;
 
     public Player(){
         this.heros = new ArrayList<Hero>();
@@ -47,11 +47,15 @@ public class Player{
         }
         System.out.println();
         System.out.println("You have formed your hero team.");
-        this.teamHerosInfo = new HerosInfo(this.heros);
+        this.herosFactory = new HerosInfo(this.heros);
     }
 
     public void setStatus(int i){
         this.status = i;
+    }
+
+    public boolean getWinStatus(){
+        return this.win;
     }
 
     public int getStatus(){
@@ -124,7 +128,6 @@ public class Player{
                             s = true;
                             break;
                 case 'd':   //move right
-                            
                             if (y+1>size) {
                                 System.out.println("You can't move that way, out of the map.");
                                 break;
@@ -138,10 +141,13 @@ public class Player{
                             break;
                 case 'i':   //show info
                             System.out.println("**** Current HERO team status ****");
-                            this.teamHerosInfo.displayAll();
+                            this.herosFactory.displayAll();
                             break;
                 case 'c':   //show info
-                            this.teamHerosInfo.changeInv();
+                            this.herosFactory.changeInv();
+                            break;
+                case 'p':
+                            s = true;
                             break;
                 default:    
                             s = true;
@@ -167,6 +173,14 @@ public class Player{
         System.out.println("2) Sorccerer");
         System.out.println("3) Paladin");
         System.out.println();
+    }
+
+    public boolean checkWin(){
+        for (Hero h : this.herosFactory.getHeros()){
+            // if one of heros are in monster's nexus
+            return true;
+        }
+        return false;
     }
 
 }
