@@ -32,6 +32,9 @@ public class Hero{
     protected int[][] position;
     protected int[][] birth;
 
+    //range is what?
+    protected int range;
+
     public Hero(String name, double mana, double strength, double agility, double dexterity, double m, double exp){
         // initialize items in an inventory
         this.name = name;

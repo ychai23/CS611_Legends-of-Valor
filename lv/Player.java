@@ -12,7 +12,6 @@ public class Player{
     private int[] position = {0,0};
     private Control control;
     private HerosInfo herosFactory;
-    private HerosInfo teamHerosInfo;
     private int status = 1;
     private boolean win = false;
 
@@ -48,7 +47,7 @@ public class Player{
         }
         System.out.println();
         System.out.println("You have formed your hero team.");
-        this.teamHerosInfo = new HerosInfo(this.heros);
+        this.herosFactory = new HerosInfo(this.heros);
     }
 
     public void setStatus(int i){
@@ -142,10 +141,10 @@ public class Player{
                             break;
                 case 'i':   //show info
                             System.out.println("**** Current HERO team status ****");
-                            this.teamHerosInfo.displayAll();
+                            this.herosFactory.displayAll();
                             break;
                 case 'c':   //show info
-                            this.teamHerosInfo.changeInv();
+                            this.herosFactory.changeInv();
                             break;
                 case 'p':
                             s = true;
