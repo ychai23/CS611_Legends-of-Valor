@@ -29,6 +29,8 @@ public class Hero{
     protected double maxS;
     protected double maxD;
     protected double maxA;
+    protected int[][] position;
+    protected int[][] birth;
 
     public Hero(String name, double mana, double strength, double agility, double dexterity, double m, double exp){
         // initialize items in an inventory
@@ -50,6 +52,10 @@ public class Hero{
         this.maxS = strength;
         this.maxD = dexterity;
         this.maxA = agility;
+    }
+
+    public int[][] getPos(){
+        return this.position;
     }
 
     public int getLevel(){
@@ -322,8 +328,17 @@ public class Hero{
         // teleport a hero to move to a space adjacent to a target hero in a different lane.
     }
 
-    public void recall(World w){
+    public void recall(){
         // return to their specific Nexus (where they originally spawned)
+        this.position = this.birth;
+    }
+
+    public void respawn(){
+        // return to their specific Nexus (where they originally spawned) - change location
+        // reset status base on their current lvl
+        this.recall();
+        this.HP = this.maxHP;
+        this.MP = this.maxMP;
     }
 
 

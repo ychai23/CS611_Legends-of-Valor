@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
  * Control class that take input from player for option
  */
 public class Control{
-    private final char[] options = {'w', 'a', 's', 'd', 'q', 'i', 'm', 'c'};
+    private final char[] options = {'w', 'a', 's', 'd', 'q', 'i', 'm', 'c', 'p'};
 
     public char getMove(){
         System.out.println();
@@ -15,6 +15,7 @@ public class Control{
         System.out.println("Q/q: quit game");
         System.out.println("I/i: show information");
         System.out.println("C/c: change armor/weapon");
+        System.out.println("P/p: pass");
         System.out.println();
         System.out.print("Enter your move: ");
 

@@ -88,7 +88,7 @@ public class Monster{
         double HP = h.receiveMonsterDamage(this.baseDam*0.01);
         if (HP<=0){
             System.out.println(h.getName() + " has been defeated, fainted");
-            hf.removeHero(idx);
+            h.respawn();
         }
     }
 

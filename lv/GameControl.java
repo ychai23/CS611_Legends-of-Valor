@@ -24,8 +24,8 @@ public class GameControl{
                 break;
             }
             this.w.respond(this.p);
-            
-            if (this.p.getStatus() == 0){
+            if (p.getWinStatus()){
+                System.out.println("You won! ");
                 break;
             }
         }
