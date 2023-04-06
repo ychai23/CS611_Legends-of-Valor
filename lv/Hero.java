@@ -29,8 +29,8 @@ public class Hero{
     protected double maxS;
     protected double maxD;
     protected double maxA;
-    protected int[][] position;
-    protected int[][] birth;
+    protected int[] position;
+    protected int[] birth;
 
     //range is what?
     protected int range;
@@ -55,9 +55,11 @@ public class Hero{
         this.maxS = strength;
         this.maxD = dexterity;
         this.maxA = agility;
+        this.position = new int[]{0,0};
+        this.birth = new int[]{0,0};
     }
 
-    public int[][] getPos(){
+    public int[] getPos(){
         return this.position;
     }
 
@@ -87,6 +89,10 @@ public class Hero{
 
     public void setDefense(double d){
         this.defense = d;
+    }
+
+    public void setPos(int[] pos){
+        this.position = pos;
     }
 
     public void changeInv(){

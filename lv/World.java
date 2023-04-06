@@ -31,18 +31,24 @@ public class World{
         return this.size;
     }
 
-    public void respond(Player p){
-        int[] pos = p.getPos();
-
+    public void respond(Hero h){
+        int[] pos = h.getPos();
         Grid g = this.map[pos[0]][pos[1]];
 
-        if (g.getType() == ' ') {
-            System.out.println("**** You have entered a BATTLE Grid! ****");
-            ((BattleGrid) g).runBattle(p);
+        if (g.getType() == 'N') {
+            System.out.println("**** You have entered a NEXUS Grid! ****");
         }
-        if (g.getType() == 'M') {
-            System.out.println("**** You have entered a MARKET Grid! ****");
-            ((MarketGrid) g).runMarket(this.player);
+        if (g.getType() == 'P') {
+            System.out.println("**** You have entered a PLAIN Grid! ****");
+        }
+        if (g.getType() == 'B') {
+            System.out.println("**** You have entered a BUSH Grid! ****");
+        }
+        if (g.getType() == 'C') {
+            System.out.println("**** You have entered a CAVE Grid! ****");
+        }
+        if (g.getType() == 'K') {
+            System.out.println("**** You have entered a KOULOU Grid! ****");
         }
 
     }

@@ -17,7 +17,7 @@ public class Control{
         System.out.println("C/c: change armor/weapon");
         System.out.println("P/p: pass");
         System.out.println();
-        System.out.print("Enter your move: ");
+        System.out.print("Enter your move for the hero: ");
 
 
         Scanner sc = new Scanner(System.in);

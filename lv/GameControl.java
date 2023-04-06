@@ -15,17 +15,22 @@ public class GameControl{
         System.out.println("Welcome! Please set-up your party");
         this.p = new Player();
         this.w = new World(8, p);
-        
-        System.out.println("Your current position is " + p.getPos()[0]+ p.getPos()[1]);
 
         while (true){
-            char move = this.p.move(this.w);
-            if (move == 'q'){
-                break;
+            char move = ' ';
+            for (Hero h : this.p.getHeros()){
+                System.out.println(h.getName() + " 's turn.");
+                move = this.p.move(this.w, h);
+                this.w.respond(h);
+                if (p.getWinStatus()){
+                    System.out.println("You won! ");
+                    break;
+                }
+                if (move == 'q'){
+                    break;
+                }
             }
-            this.w.respond(this.p);
-            if (p.getWinStatus()){
-                System.out.println("You won! ");
+            if (move == 'q' || p.getWinStatus()){
                 break;
             }
         }
