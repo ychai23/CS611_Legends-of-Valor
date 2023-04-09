@@ -8,15 +8,12 @@ import java.util.ArrayList;
  */
 public class Player{
     private char symbol;
-    private ArrayList<Hero> heros;
-    private int[] position = {0,0};
     private Control control;
     private HerosInfo herosFactory;
-    private int status = 1;
+    private int status = 0;
     private boolean win = false;
 
     public Player(){
-        this.heros = new ArrayList<Hero>();
         this.control = new Control();
         // get user inputs to create the heros
         Scanner sc = new Scanner(System.in);
@@ -43,11 +40,10 @@ public class Player{
 
             // add hero to player's team
             System.out.println("You selected " + this.herosFactory.getHeros().get(heroSelected).getName());
-            this.heros.add(this.herosFactory.getHeros().get(heroSelected));
+            this.herosFactory.addHero(this.herosFactory.getHeros().get(heroSelected));
         }
         System.out.println();
         System.out.println("You have formed your hero team.");
-        this.herosFactory = new HerosInfo(this.heros);
     }
 
     public void setStatus(int i){
@@ -62,28 +58,19 @@ public class Player{
         return this.status;
     }
 
-    public int[] getPos(){
-        return this.position;
-    }
-
     public char getSymbol(){
         return this.symbol;
     }
 
     public ArrayList<Hero> getHeros(){
-        return this.heros;
+        return this.herosFactory.getHeros();
     }
 
-    public void setPos(int[] pos){
-        this.position = pos;
-    }
-
-    public char move(World w){
+    public char move(World w, Hero h){
         Grid[][] map = w.getMap();
-        
         int size = w.getSize();
-        int x = this.position[0];
-        int y = this.position[1];
+        int x = h.getPos()[0];
+        int y = h.getPos()[1];
         boolean s = false;
         char move = ' ';
 
@@ -91,7 +78,7 @@ public class Player{
             System.out.println(w);
             move = this.control.getMove();
             switch (move) {
-                case 'w':   
+                case 'w':   //move up
                             if (x-1<0) {
                                 System.out.println("You can't move that way, out of the map.");
                                 break;
@@ -115,7 +102,7 @@ public class Player{
                             y-=1;
                             s = true;
                             break;
-                case 's':   
+                case 's':   //move up
                             if (x+1>size) {
                                 System.out.println("You can't move that way, out of the map.");
                                 break;
@@ -146,7 +133,7 @@ public class Player{
                 case 'c':   //show info
                             this.herosFactory.changeInv();
                             break;
-                case 'p':
+                case 'p':   //pass
                             s = true;
                             break;
                 default:    
@@ -155,7 +142,7 @@ public class Player{
             }
         }
         int[] newPost = {x,y};
-        this.setPos(newPost);
+        h.setPos(newPost);
         return move;
     }
 

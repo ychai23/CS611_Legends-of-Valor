@@ -15,6 +15,7 @@ public class Monster{
     protected double dodgeV;
     protected double dodgeC;
     protected int status;
+    protected int[] position;
 
 
     public Monster(String name){
@@ -46,6 +47,10 @@ public class Monster{
 
     public int getLevel(){
         return this.level;
+    }
+
+    public int[] getPos(){
+        return this.position;
     }
 
 

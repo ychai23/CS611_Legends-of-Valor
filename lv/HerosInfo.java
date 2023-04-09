@@ -47,6 +47,10 @@ public class HerosInfo{
         return this.heros;
     }
 
+    public void addHero(Hero h){
+        this.heros.add(h);
+    }
+
     public void changeInv(){
         for (Hero h : this.heros){
             h.changeInv();
