@@ -7,7 +7,6 @@ import java.util.ArrayList;
  * 
  */
 public class Player{
-    private char symbol;
     private Control control;
     private HerosInfo herosFactory;
     private int status = 0;
@@ -17,13 +16,11 @@ public class Player{
         this.control = new Control();
         // get user inputs to create the heros
         Scanner sc = new Scanner(System.in);
-        System.out.print("Enter single character for your map symbol: ");
-        this.symbol = sc.next().charAt(0);
         
         System.out.print("Insert number of heros (1-3): ");
         int teamS = sc.nextInt();
 
-        for (int i=0; i<teamS; i++){
+        for (int i=1; i<teamS+1; i++){
             // select which type of hero
             this.displayTypes();
             System.out.print("Selection? ");
@@ -39,7 +36,9 @@ public class Player{
             int heroSelected = sc.nextInt();
 
             // add hero to player's team
-            System.out.println("You selected " + this.herosFactory.getHeros().get(heroSelected).getName());
+            Hero h = this.herosFactory.getHeros().get(heroSelected);
+            System.out.println("You selected " + h.getName());
+            h.setSymbol("H" + i);
             this.herosFactory.addHero(this.herosFactory.getHeros().get(heroSelected));
         }
         System.out.println();
@@ -58,15 +57,20 @@ public class Player{
         return this.status;
     }
 
-    public char getSymbol(){
-        return this.symbol;
-    }
-
     public ArrayList<Hero> getHeros(){
         return this.herosFactory.getHeros();
     }
 
-    public char move(World w, Hero h){
+    public HerosInfo getHeroFact(){
+        return this.herosFactory;
+    }
+
+
+    public Hero getHero(int i){
+        return this.herosFactory.getHero(i);
+    }
+
+    public char move(ValorWorld w, Hero h){
         Grid[][] map = w.getMap();
         int size = w.getSize();
         int x = h.getPos()[0];

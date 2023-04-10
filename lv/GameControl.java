@@ -7,14 +7,16 @@
  */
 public class GameControl{
     private Player p;
-    private World w;
+    private MonstersInfo mf;
+    private ValorWorld w;
 
     public void run(){
         // code to run game
         System.out.println("****** LEGENDS: MONSTORS AND HEROS ******");
         System.out.println("Welcome! Please set-up your party");
         this.p = new Player();
-        this.w = new World(8, p);
+        this.mf = new MonstersInfo(p.getHeroFact());
+        this.w = new ValorWorld(8, p, mf);
 
         while (true){
             char move = ' ';

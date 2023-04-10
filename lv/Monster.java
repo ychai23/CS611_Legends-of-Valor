@@ -14,6 +14,7 @@ public class Monster{
     protected double defenseV;
     protected double dodgeV;
     protected double dodgeC;
+    protected String symbol;
     protected int status;
     protected int[] position;
 
@@ -53,6 +54,13 @@ public class Monster{
         return this.position;
     }
 
+    public String getSymbol(){
+        return this.symbol;
+    }
+
+    public void setSymbol(String s){
+        this.symbol = s;
+    }
 
     public double receiveWeaponDamage(double damage){
         // can dodge

@@ -29,6 +29,7 @@ public class Hero{
     protected double maxS;
     protected double maxD;
     protected double maxA;
+    protected String symbol;
     protected int[] position;
     protected int[] birth;
 
@@ -81,6 +82,14 @@ public class Hero{
 
     public double getGold(){
         return this.gold;
+    }
+
+    public String getSymbol(){
+        return this.symbol;
+    }
+
+    public void setSymbol(String s){
+        this.symbol = s;
     }
 
     public void setStatus(int i){
@@ -324,16 +333,16 @@ public class Hero{
         this.inventory.display();
     }
     
-    public boolean inRange(World w, Monster m){
+    public boolean inRange(ValorWorld w, Monster m){
         // determine if a monster is in range (neighbor grids of the hero)
         return true;
     }
 
-    public void move(World w){
+    public void move(ValorWorld w){
         // move the hero on the map
     }
 
-    public void teleport(World w){
+    public void teleport(ValorWorld w){
         // teleport a hero to move to a space adjacent to a target hero in a different lane.
     }
 

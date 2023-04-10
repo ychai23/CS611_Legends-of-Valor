@@ -3,10 +3,12 @@ import java.util.Random;
 public class ValorWorld{
     private Grid[][] map;
     private Player player;
+    private MonstersInfo mf;
     private int size;
 
-    public ValorWorld(int size){
-
+    public ValorWorld(int size, Player p, MonstersInfo mf){
+        this.player = p;
+        this.mf = mf;
         this.size = size;
         this.map = new Grid[size][size];
         // random initilization of different spaces
@@ -36,19 +38,19 @@ public class ValorWorld{
         return this.size;
     }
 
-    public void respond(Player p){
-        int[] pos = p.getPos();
+    public void respond(Hero h){
+        // int[] pos = p.getPos();
 
-        Grid g = this.map[pos[0]][pos[1]];
+        // Grid g = this.map[pos[0]][pos[1]];
 
-        if (g.getType() == ' ') {
-            System.out.println("**** You have entered a BATTLE Grid! ****");
-            ((BattleGrid) g).runBattle(p);
-        }
-        if (g.getType() == 'M') {
-            System.out.println("**** You have entered a MARKET Grid! ****");
-            ((MarketGrid) g).runMarket(this.player);
-        }
+        // if (g.getType() == ' ') {
+        //     System.out.println("**** You have entered a BATTLE Grid! ****");
+        //     ((BattleGrid) g).runBattle(p);
+        // }
+        // if (g.getType() == 'M') {
+        //     System.out.println("**** You have entered a MARKET Grid! ****");
+        //     ((MarketGrid) g).runMarket(this.player);
+        // }
 
     }
 
@@ -81,13 +83,15 @@ public class ValorWorld{
             }
             s+="\n";
             for (int j=0; j<size; j++){
-
-
-                //TODO:
-//                Get Position of Each Hero
-//                Get Position of each Monster
-//                Adjust Each Print
-                s+="|       |  ";
+                for (int k=0; k<3; k++){
+                    if (this.player.getHero(i).getPos()[0] == i && this.player.getHero(0).getPos()[1] == j) {
+                        s += this.player.getHero(i).getSymbol() + "     |";
+                    } else if (this.mf.getMonster(i).getPos()[0] == i && this.mf.getMonster(i).getPos()[1] == j){
+                        s += this.mf.getMonster(i).getSymbol() + "     |";
+                    } else{
+                        s+="|       |  ";
+                    }
+                }
             }
             s+="\n";
             for (int j=0; j<size; j++){

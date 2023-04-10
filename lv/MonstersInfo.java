@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 
 /*
@@ -9,13 +10,17 @@ import java.util.ArrayList;
  */
 public class MonstersInfo{
     private ArrayList<Monster> monsters;
+    private int monsterLvl;
     private MonsterReader mr;
 
     public MonstersInfo(HerosInfo hf){
         this.monsters = new ArrayList<Monster>();
-        MonsterReader mr = new MonsterReader();
+        this.mr = new MonsterReader();
+        this.monsterLvl = hf.highestLvl();
         for (int i=1; i<=hf.getSize(); i++){
-            this.monsters.add(mr.getMonster(hf.highestLvl(), i));
+            Monster m = mr.getMonster(monsterLvl, i);
+            m.setSymbol("M" + i);
+            this.monsters.add(m);
         }
     }
 
@@ -25,6 +30,14 @@ public class MonstersInfo{
 
     public boolean allDefeated(){
         return this.monsters.isEmpty();
+    }
+
+    public void replaceMonster(int idx){
+        Random rand = new Random();
+        int i = rand.nextInt(2) + 1;
+        Monster m = mr.getMonster(monsterLvl, i);
+        m.setSymbol("M" + i);
+        this.monsters.set(idx, m);
     }
 
     public void removeMonster(int idx){
