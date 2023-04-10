@@ -45,6 +45,42 @@ public class Player{
         System.out.println("You have formed your hero team.");
     }
 
+    public Player(int number){
+        this.control = new Control();
+        // get user inputs to create the heros
+        Scanner sc = new Scanner(System.in);
+        int teamS = number;
+        String[] s = new String[]{"Choose your Hero For Top Lane:","Choose your hero For Mid Lane:","Choose your hero for Bot Lane: "};
+
+        for (int i=1; i<teamS+1; i++){
+            // select which type of hero
+            System.out.println(s[i-1]);
+            this.displayTypes();
+            System.out.print("Selection? ");
+            int type = sc.nextInt();
+            System.out.println();
+
+            // create hero factory
+            this.herosFactory = new HerosInfo(type);
+            this.herosFactory.displayHeros();
+
+            // select hero from the specific type
+            System.out.print("Selection? ");
+            int heroSelected = sc.nextInt();
+
+            // add hero to player's team
+            Hero h = this.herosFactory.getHeros().get(heroSelected);
+            System.out.println("You selected " + h.getName());
+            h.setSymbol("H" + i);
+            this.herosFactory.addHero(this.herosFactory.getHeros().get(heroSelected));
+
+            //set new hero position {0, 4, 7}
+            herosFactory.getHero(i-1).setPos(new int[]{7, (i-1)*3+1});;
+        }
+        System.out.println();
+        System.out.println("You have formed your hero team.");
+    }
+
     public void setStatus(int i){
         this.status = i;
     }
@@ -87,7 +123,7 @@ public class Player{
                                 System.out.println("You can't move that way, out of the map.");
                                 break;
                             }
-                            if (map[x-1][y].getType() == 'i') {
+                            if (map[x-1][y].getType() == 'i' || map[x-1][y].getType() == 'I') {
                                 System.out.println("You can't move that way, Illegal Grid.");
                                 break;
                             }

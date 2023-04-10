@@ -24,6 +24,18 @@ public class MonstersInfo{
         }
     }
 
+    public MonstersInfo(HerosInfo hf, int number){
+        this.monsters = new ArrayList<Monster>();
+        this.mr = new MonsterReader();
+        this.monsterLvl = hf.highestLvl();
+        for (int i=1; i<=hf.getSize(); i++){
+            Monster m = mr.getMonster(monsterLvl, i);
+            m.setSymbol("M" + i);
+            this.monsters.add(m);
+            this.getMonster(i-1).setPos(new int[]{0, 3*(i-1)+1});;
+        }
+    }
+
     public ArrayList<Monster> getMonsters(){
         return this.monsters;
     }
