@@ -1,6 +1,6 @@
 import javax.sound.sampled.SourceDataLine;
 
-public class VolarGame extends GameControl {
+public class ValorGame extends GameControl {
     Player volarPlayer = null;
     MonstersInfo mf = null;
     ValorWorld map = null;
@@ -19,7 +19,7 @@ public class VolarGame extends GameControl {
             char move = ' ';
             for (Hero h : this.volarPlayer.getHeros()){
                 System.out.println(h.getName() + " 's turn.");
-                move = this.volarPlayer.move(this.map, h);
+                move = h.move(this.map, h, this.mf, this.volarPlayer.getHeroFact());
                 this.map.respond(h);
                 if (volarPlayer.getWinStatus()){
                     System.out.println("You won! ");

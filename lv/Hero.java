@@ -10,6 +10,7 @@ import java.util.Scanner;
  * 
  */
 public class Hero{
+    protected Control control;
     protected Inventory inventory;
     protected String name;
     protected int level;
@@ -32,12 +33,11 @@ public class Hero{
     protected String symbol;
     protected int[] position;
     protected int[] birth;
-
-    //range is what?
     protected int range;
 
     public Hero(String name, double mana, double strength, double agility, double dexterity, double m, double exp){
         // initialize items in an inventory
+        this.control = new Control();
         this.name = name;
         this.level = 1;
         this.maxHP = 100*this.level;
@@ -58,6 +58,7 @@ public class Hero{
         this.maxA = agility;
         this.position = new int[]{0,0};
         this.birth = new int[]{0,0};
+        this.range = 1;
     }
 
     public int[] getPos(){
@@ -270,32 +271,46 @@ public class Hero{
         this.inventory.removePotion(potionID);
     }
 
-    public void attack(int monsterID, MonstersInfo ms){
+    public void attack(ValorWorld world, MonstersInfo mf){
+        this.displayInRange(world, mf);
+        // select monster to attack
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter which monster(ID) you want to attack: ");
+        int monsterID = sc.nextInt();
+        
         Weapon w = this.inventory.getMainhand();
-        Monster m = ms.getMonster(monsterID);
+        Monster m = mf.getMonster(monsterID);
         double damage = (w.getDamage() + this.strengthV) * 0.05;
 
+        // attack
         System.out.println(this.name + " have attacked monster" + m.getName() + " with " + w.getName());
 
         double HP = m.receiveWeaponDamage(damage);
         if (HP<=0){
             System.out.println(m.getName() + " has fainted.");
-            ms.removeMonster(monsterID);
+            mf.removeMonster(monsterID);
         }
 
     }
 
-    public void castSpell(int monsterID, MonstersInfo ms){
+    public void castSpell(ValorWorld world, MonstersInfo mf){
+        this.displayInRange(world, mf);
+        // select monster to cast spell
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter which monster(ID) you want to attack: ");
+        int monsterID = sc.nextInt();
+        
         Spell s = this.chooseSpell();
-        Monster m = ms.getMonster(monsterID);
+        Monster m = mf.getMonster(monsterID);
         double damage = (s.getDamage() + this.dexterityV / 10000 * s.getDamage());
 
+        // cast a spell
         System.out.println(this.name + " have casted sepll " + s.getName() + " on monster " + m.getName());
 
         double HP = m.receiveSpellDamage(s, damage);
         if (HP<=0){
             System.out.println(m.getName() + " has fainted.");
-            ms.removeMonster(monsterID);
+            mf.removeMonster(monsterID);
         }
     }
 
@@ -332,23 +347,167 @@ public class Hero{
     public void displayInventory(){
         this.inventory.display();
     }
-    
+
+    public void displayInRange(ValorWorld w, MonstersInfo mf){
+        // (display the monsters that you can attack) choose target to attack to
+        int i = 0;
+        for (Monster m : mf.getMonsters()){
+            if (this.inRange(w, m)){
+                System.out.print("[" + i + "] " + m.getName() + " is in range");
+                m.display();
+            }
+        }
+    }
+
+    public char move(ValorWorld w, Hero h, MonstersInfo mf, HerosInfo hf){
+        Grid[][] map = w.getMap();
+        int size = w.getSize();
+        int x = h.getPos()[0];
+        int y = h.getPos()[1];
+        boolean s = false;
+        char move = ' ';
+
+        while (!s){
+            System.out.println(w);
+            move = this.control.getMove();
+            switch (move) {
+                case 'w':   //move up
+                            if (x-1<0) {
+                                System.out.println("You can't move that way, out of the map.");
+                                break;
+                            }
+                            if (map[x-1][y].getType() == 'i' || map[x-1][y].getType() == 'I') {
+                                System.out.println("You can't move that way, Illegal Grid.");
+                                break;
+                            }
+                            x-=1;
+                            s = true;
+                            break;
+                case 'a':   //move left
+                            if (y-1<0) {
+                                System.out.println("You can't move that way, out of the map.");
+                                break;
+                            }
+                            if (map[x][y-1].getType() == 'X') {
+                                System.out.println("You can't move that way, Illegal Grid.");
+                                break;
+                            }
+                            y-=1;
+                            s = true;
+                            break;
+                case 's':   //move up
+                            if (x+1>size) {
+                                System.out.println("You can't move that way, out of the map.");
+                                break;
+                            }
+                            if (map[x+1][y].getType() == 'X') {
+                                System.out.println("You can't move that way, Illegal Grid.");
+                                break;
+                            }
+                            x+=1;
+                            s = true;
+                            break;
+                case 'd':   //move right
+                            if (y+1>size) {
+                                System.out.println("You can't move that way, out of the map.");
+                                break;
+                            }
+                            if (map[x][y+1].getType() == 'X') {
+                                System.out.println("You can't move that way, Illegal Grid.");
+                                break;
+                            }
+                            y+=1;
+                            s = true;
+                            break;
+                case 'c':   //change inventory
+                            this.changeInv();
+                            break;
+                case 't':   //attack
+                            this.attack(w, mf);
+                            break;
+                case 'l':   //cast spell
+                            this.castSpell(w, mf);
+                            break;
+                case 'u':   //use potion
+                            this.usePotion();
+                            break;
+                case 'e':   //teleport
+                            this.teleport(w, hf);
+                            break;
+                case 'r':   //recall
+                            this.recall();
+                            break;
+                default:    
+                            s = true;
+                            break;
+            }
+        }
+        int[] newPost = {x,y};
+        this.setPos(newPost);
+        return move;
+    }
+
     public boolean inRange(ValorWorld w, Monster m){
         // determine if a monster is in range (neighbor grids of the hero)
-        return true;
+        int[] monsterPos = m.getPos();
+        if ((this.getPos()[0] - 1 == monsterPos[0] && this.getPos()[0] - 1 == monsterPos[1]) ||
+            (this.getPos()[0] + 1 == monsterPos[0] && this.getPos()[0] - 1 == monsterPos[1]) ||
+            (this.getPos()[0] - 1 == monsterPos[0] && this.getPos()[0] + 1 == monsterPos[1]) ||
+            (this.getPos()[0] + 1 == monsterPos[0] && this.getPos()[0] + 1 == monsterPos[1])){
+                return true;
+            }
+        return false;
     }
 
-    public void move(ValorWorld w){
-        // move the hero on the map
-    }
-
-    public void teleport(ValorWorld w){
+    public void teleport(ValorWorld w, HerosInfo hf){
         // teleport a hero to move to a space adjacent to a target hero in a different lane.
+        boolean valid = false;
+        boolean success = false;
+        Grid[][] map = w.getMap();
+        int heroID = -1;
+        Scanner sc = new Scanner(System.in);
+        int[] heroPos = new int[]{0,0};
+        
+        while (!valid){
+            System.out.print("Enter the hero ID you want to teleport next to: ");
+            heroID = sc.nextInt();
+            // check the hero is not in the same lane
+            if (hf.getHero(heroID).getPos()[1] != this.position[1]){
+                heroPos[0] = hf.getHero(heroID).getPos()[0];
+                heroPos[1] = hf.getHero(heroID).getPos()[1];
+                valid = true;
+            }
+        }
+
+        System.out.print("Enter the location in respect to the target hero, side or below? enter character (s/b): ");
+        char pos = sc.nextLine().charAt(0);
+        if (pos == 's'){
+            if (map[heroPos[0]][heroPos[1]+1].getType() != 'X' && w.heroOccupied(heroPos[0], heroPos[1]+1)) {
+                System.out.println("Teleported to the Right Successfully.");
+                this.setPos(new int[]{heroPos[0], heroPos[1]+1});
+                success = true;
+            } else if (map[heroPos[0]][heroPos[1]-1].getType() != 'X' && w.heroOccupied(heroPos[0], heroPos[1]-1)){
+                System.out.println("Teleported to the Left Successfully.");
+                this.setPos(new int[]{heroPos[0], heroPos[1]-1});
+                success = true;
+            } else{
+                System.out.println("Cannot teleport to that position.");
+            }
+        } else{
+            if (heroPos[0] + 1 >= 0 && map[heroPos[0]+1][heroPos[1]].getType() != 'X' && w.heroOccupied(heroPos[0]+1, heroPos[1])) {
+                System.out.println("Teleported Below Successfully.");
+                this.setPos(new int[]{heroPos[0]+1, heroPos[1]});
+                success = true;
+            } else{
+                System.out.println("Cannot teleport to that position.");
+            }
+        }
+        if (!success) System.out.println("Teleportation failed. You wasted a move.");
     }
 
     public void recall(){
         // return to their specific Nexus (where they originally spawned)
-        this.position = this.birth;
+        this.setPos(this.birth);
     }
 
     public void respawn(){

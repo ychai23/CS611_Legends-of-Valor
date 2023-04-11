@@ -38,6 +38,15 @@ public class ValorWorld{
         return this.size;
     }
 
+    public boolean heroOccupied(int i, int j){
+        for (Hero h : this.player.getHeros()){
+            if (h.getPos()[0] == i && h.getPos()[0] == j){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void respond(Hero h){
         int[] pos = h.getPos();
         Grid g = this.map[pos[0]][pos[1]];
