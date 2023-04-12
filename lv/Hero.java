@@ -34,6 +34,7 @@ public class Hero{
     protected int[] position;
     protected int[] birth;
     protected int range;
+    protected int index;
 
     public Hero(String name, double mana, double strength, double agility, double dexterity, double m, double exp){
         // initialize items in an inventory
@@ -69,6 +70,10 @@ public class Hero{
         return this.level;
     }
 
+    public int getIndex(){
+        return this.index;
+    }
+
     public String getName(){
         return this.name;
     }
@@ -89,6 +94,14 @@ public class Hero{
         return this.symbol;
     }
 
+    public void setIndex(int i){
+        this.index = i;
+    }
+
+    public void setBirth(int[] pos){
+        this.birth = pos;
+    }
+
     public void setSymbol(String s){
         this.symbol = s;
     }
@@ -103,6 +116,100 @@ public class Hero{
 
     public void setPos(int[] pos){
         this.position = pos;
+    }
+
+    public char move(ValorWorld w, MonstersInfo mf, HerosInfo hf){
+        Grid[][] map = w.getMap();
+        int size = w.getSize();
+        int x = this.getPos()[0];
+        int y = this.getPos()[1];
+        boolean s = false;
+        char move = ' ';
+
+        while (!s){
+            System.out.println(w);
+            System.out.println(this.getName() + "(H" + this.index + ")" + " 's turn.");
+            move = this.control.getMove();
+            switch (move) {
+                case 'w':   //move up
+                            if (x-1<0) {
+                                System.out.println("You can't move that way, out of the map.");
+                                break;
+                            }
+                            if (map[x-1][y].getType() == 'i' || map[x-1][y].getType() == 'I') {
+                                System.out.println("You can't move that way, Illegal Grid.");
+                                break;
+                            }
+                            x-=1;
+                            s = true;
+                            break;
+                case 'a':   //move left
+                            if (y-1<0) {
+                                System.out.println("You can't move that way, out of the map.");
+                                break;
+                            }
+                            if (map[x][y-1].getType() == 'X') {
+                                System.out.println("You can't move that way, Illegal Grid.");
+                                break;
+                            }
+                            y-=1;
+                            s = true;
+                            break;
+                case 's':   //move up
+                            if (x+1>size) {
+                                System.out.println("You can't move that way, out of the map.");
+                                break;
+                            }
+                            if (map[x+1][y].getType() == 'X') {
+                                System.out.println("You can't move that way, Illegal Grid.");
+                                break;
+                            }
+                            x+=1;
+                            s = true;
+                            break;
+                case 'd':   //move right
+                            if (y+1>size) {
+                                System.out.println("You can't move that way, out of the map.");
+                                break;
+                            }
+                            if (map[x][y+1].getType() == 'X') {
+                                System.out.println("You can't move that way, Illegal Grid.");
+                                break;
+                            }
+                            y+=1;
+                            s = true;
+                            break;
+                case 'c':   //change inventory
+                            this.changeInv();
+                            break;
+                case 't':   //attack
+                            s = this.attack(w, mf);
+                            break;
+                case 'l':   //cast spell
+                            s = this.castSpell(w, mf);
+                            break;
+                case 'u':   //use potion
+                            this.usePotion();
+                            s = true;
+                            break;
+                case 'e':   //teleport
+                            s = this.teleport(w, hf);
+                            break;
+                case 'r':   //recall
+                            this.recall();
+                            s = true;
+                            break;
+                case 'p':   //pass
+                            s = true;
+                            break;
+                default:    
+                            s = true;
+                            break;
+            }
+        }
+        int[] newPost = {x,y};
+        this.setPos(newPost);
+        return move;
     }
 
     public void changeInv(){
@@ -271,47 +378,60 @@ public class Hero{
         this.inventory.removePotion(potionID);
     }
 
-    public void attack(ValorWorld world, MonstersInfo mf){
-        this.displayInRange(world, mf);
-        // select monster to attack
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter which monster(ID) you want to attack: ");
-        int monsterID = sc.nextInt();
-        
-        Weapon w = this.inventory.getMainhand();
-        Monster m = mf.getMonster(monsterID);
-        double damage = (w.getDamage() + this.strengthV) * 0.05;
-
-        // attack
-        System.out.println(this.name + " have attacked monster" + m.getName() + " with " + w.getName());
-
-        double HP = m.receiveWeaponDamage(damage);
-        if (HP<=0){
-            System.out.println(m.getName() + " has fainted.");
-            mf.removeMonster(monsterID);
+    public boolean attack(ValorWorld world, MonstersInfo mf){
+        boolean success = false;
+        if (!this.displayInRange(world, mf)) {
+            System.out.println("No Monsters in Range, cannot attack.");
         }
+        else{
+            // select monster to attack
+            Scanner sc = new Scanner(System.in);
+            System.out.print("Enter which monster(ID) you want to attack: ");
+            int monsterID = sc.nextInt();
+            
+            Weapon w = this.inventory.getMainhand();
+            Monster m = mf.getMonster(monsterID);
+            double damage = (w.getDamage() + this.strengthV) * 0.05;
 
+            // attack
+            System.out.println(this.name + " have attacked monster" + m.getName() + " with " + w.getName());
+
+            double HP = m.receiveWeaponDamage(damage);
+            if (HP<=0){
+                System.out.println(m.getName() + " has fainted.");
+                mf.replaceMonster(monsterID);
+            }
+            success = true;
+        }
+        return success;
     }
 
-    public void castSpell(ValorWorld world, MonstersInfo mf){
-        this.displayInRange(world, mf);
-        // select monster to cast spell
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter which monster(ID) you want to attack: ");
-        int monsterID = sc.nextInt();
-        
-        Spell s = this.chooseSpell();
-        Monster m = mf.getMonster(monsterID);
-        double damage = (s.getDamage() + this.dexterityV / 10000 * s.getDamage());
-
-        // cast a spell
-        System.out.println(this.name + " have casted sepll " + s.getName() + " on monster " + m.getName());
-
-        double HP = m.receiveSpellDamage(s, damage);
-        if (HP<=0){
-            System.out.println(m.getName() + " has fainted.");
-            mf.removeMonster(monsterID);
+    public boolean castSpell(ValorWorld world, MonstersInfo mf){
+        boolean success = false;
+        if (!this.displayInRange(world, mf)) {
+            System.out.println("No Monsters in Range, cannot cast.");
         }
+        else{
+            // select monster to cast spell
+            Scanner sc = new Scanner(System.in);
+            System.out.print("Enter which monster(ID) you want to attack: ");
+            int monsterID = sc.nextInt();
+            
+            Spell s = this.chooseSpell();
+            Monster m = mf.getMonster(monsterID);
+            double damage = (s.getDamage() + this.dexterityV / 10000 * s.getDamage());
+
+            // cast a spell
+            System.out.println(this.name + " have casted sepll " + s.getName() + " on monster " + m.getName());
+
+            double HP = m.receiveSpellDamage(s, damage);
+            if (HP<=0){
+                System.out.println(m.getName() + " has fainted.");
+                mf.replaceMonster(monsterID);
+            }
+            success = true;
+        }
+        return success;
     }
 
     public Spell chooseSpell(){
@@ -348,103 +468,18 @@ public class Hero{
         this.inventory.display();
     }
 
-    public void displayInRange(ValorWorld w, MonstersInfo mf){
+    public boolean displayInRange(ValorWorld w, MonstersInfo mf){
+        boolean canAttack = false;
         // (display the monsters that you can attack) choose target to attack to
         int i = 0;
         for (Monster m : mf.getMonsters()){
             if (this.inRange(w, m)){
                 System.out.print("[" + i + "] " + m.getName() + " is in range");
                 m.display();
+                canAttack = true;
             }
         }
-    }
-
-    public char move(ValorWorld w, Hero h, MonstersInfo mf, HerosInfo hf){
-        Grid[][] map = w.getMap();
-        int size = w.getSize();
-        int x = h.getPos()[0];
-        int y = h.getPos()[1];
-        boolean s = false;
-        char move = ' ';
-
-        while (!s){
-            System.out.println(w);
-            move = this.control.getMove();
-            switch (move) {
-                case 'w':   //move up
-                            if (x-1<0) {
-                                System.out.println("You can't move that way, out of the map.");
-                                break;
-                            }
-                            if (map[x-1][y].getType() == 'i' || map[x-1][y].getType() == 'I') {
-                                System.out.println("You can't move that way, Illegal Grid.");
-                                break;
-                            }
-                            x-=1;
-                            s = true;
-                            break;
-                case 'a':   //move left
-                            if (y-1<0) {
-                                System.out.println("You can't move that way, out of the map.");
-                                break;
-                            }
-                            if (map[x][y-1].getType() == 'X') {
-                                System.out.println("You can't move that way, Illegal Grid.");
-                                break;
-                            }
-                            y-=1;
-                            s = true;
-                            break;
-                case 's':   //move up
-                            if (x+1>size) {
-                                System.out.println("You can't move that way, out of the map.");
-                                break;
-                            }
-                            if (map[x+1][y].getType() == 'X') {
-                                System.out.println("You can't move that way, Illegal Grid.");
-                                break;
-                            }
-                            x+=1;
-                            s = true;
-                            break;
-                case 'd':   //move right
-                            if (y+1>size) {
-                                System.out.println("You can't move that way, out of the map.");
-                                break;
-                            }
-                            if (map[x][y+1].getType() == 'X') {
-                                System.out.println("You can't move that way, Illegal Grid.");
-                                break;
-                            }
-                            y+=1;
-                            s = true;
-                            break;
-                case 'c':   //change inventory
-                            this.changeInv();
-                            break;
-                case 't':   //attack
-                            this.attack(w, mf);
-                            break;
-                case 'l':   //cast spell
-                            this.castSpell(w, mf);
-                            break;
-                case 'u':   //use potion
-                            this.usePotion();
-                            break;
-                case 'e':   //teleport
-                            this.teleport(w, hf);
-                            break;
-                case 'r':   //recall
-                            this.recall();
-                            break;
-                default:    
-                            s = true;
-                            break;
-            }
-        }
-        int[] newPost = {x,y};
-        this.setPos(newPost);
-        return move;
+        return canAttack;
     }
 
     public boolean inRange(ValorWorld w, Monster m){
@@ -459,7 +494,7 @@ public class Hero{
         return false;
     }
 
-    public void teleport(ValorWorld w, HerosInfo hf){
+    public boolean teleport(ValorWorld w, HerosInfo hf){
         // teleport a hero to move to a space adjacent to a target hero in a different lane.
         boolean valid = false;
         boolean success = false;
@@ -480,13 +515,13 @@ public class Hero{
         }
 
         System.out.print("Enter the location in respect to the target hero, side or below? enter character (s/b): ");
-        char pos = sc.nextLine().charAt(0);
+        char pos = sc.next().charAt(0);
         if (pos == 's'){
-            if (map[heroPos[0]][heroPos[1]+1].getType() != 'X' && w.heroOccupied(heroPos[0], heroPos[1]+1)) {
+            if (map[heroPos[0]][heroPos[1]+1].getType() != 'X' && !w.heroOccupied(heroPos[0], heroPos[1]+1)) {
                 System.out.println("Teleported to the Right Successfully.");
                 this.setPos(new int[]{heroPos[0], heroPos[1]+1});
                 success = true;
-            } else if (map[heroPos[0]][heroPos[1]-1].getType() != 'X' && w.heroOccupied(heroPos[0], heroPos[1]-1)){
+            } else if (map[heroPos[0]][heroPos[1]-1].getType() != 'I' && !w.heroOccupied(heroPos[0], heroPos[1]-1)){
                 System.out.println("Teleported to the Left Successfully.");
                 this.setPos(new int[]{heroPos[0], heroPos[1]-1});
                 success = true;
@@ -494,7 +529,7 @@ public class Hero{
                 System.out.println("Cannot teleport to that position.");
             }
         } else{
-            if (heroPos[0] + 1 >= 0 && map[heroPos[0]+1][heroPos[1]].getType() != 'X' && w.heroOccupied(heroPos[0]+1, heroPos[1])) {
+            if (heroPos[0] + 1 >= 0 && map[heroPos[0]+1][heroPos[1]].getType() != 'I' && w.heroOccupied(heroPos[0]+1, heroPos[1])) {
                 System.out.println("Teleported Below Successfully.");
                 this.setPos(new int[]{heroPos[0]+1, heroPos[1]});
                 success = true;
@@ -502,7 +537,8 @@ public class Hero{
                 System.out.println("Cannot teleport to that position.");
             }
         }
-        if (!success) System.out.println("Teleportation failed. You wasted a move.");
+        if (!success) System.out.println("Teleportation failed.");
+        return success;
     }
 
     public void recall(){

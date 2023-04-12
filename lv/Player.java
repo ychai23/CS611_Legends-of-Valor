@@ -1,4 +1,3 @@
-import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -7,15 +6,17 @@ import java.util.ArrayList;
  * 
  */
 public class Player{
-    private HerosInfo herosFactory;
+    private HerosInfo herosTeam;
     private int status = 0;
     private boolean win = false;
 
     public Player(int number){
+        HerosInfo herosFactory;
+        ArrayList<Hero> heros = new ArrayList<Hero>();
         // get user inputs to create the heros
         Scanner sc = new Scanner(System.in);
         int teamS = number;
-        String[] s = new String[]{"Choose your Hero For Top Lane:","Choose your hero For Mid Lane:","Choose your hero for Bot Lane: "};
+        String[] s = new String[]{"Choose your Hero For Top Lane:", "Choose your hero For Mid Lane:","Choose your hero for Bot Lane: "};
 
         for (int i=1; i<teamS+1; i++){
             // select which type of hero
@@ -26,22 +27,29 @@ public class Player{
             System.out.println();
 
             // create hero factory
-            this.herosFactory = new HerosInfo(type);
-            this.herosFactory.displayHeros();
+            herosFactory = new HerosInfo(type);
+            herosFactory.displayHeros();
 
             // select hero from the specific type
             System.out.print("Selection? ");
             int heroSelected = sc.nextInt();
 
             // add hero to player's team
-            Hero h = this.herosFactory.getHeros().get(heroSelected);
+            Hero h = herosFactory.getHeros().get(heroSelected);
             System.out.println("You selected " + h.getName());
-            h.setSymbol("H" + i);
-            h.setPos(new int[]{7, (i-1)*3+1});;
-            this.herosFactory.addHero(this.herosFactory.getHeros().get(heroSelected));
+            heros.add(h);
         }
         System.out.println();
+        this.herosTeam = new HerosInfo(heros);
+
         System.out.println("You have formed your hero team.");
+        this.herosTeam.displayHeros();
+        for(int num = 0; num < 3; num++){
+            this.herosTeam.getHero(num).setPos(new int[]{7, 3*(num)+1});
+            this.herosTeam.getHero(num).setBirth(new int[]{7, 3*(num)+1});
+            this.herosTeam.getHero(num).setSymbol("H"+num);
+            this.herosTeam.getHero(num).setIndex(num);
+        }
     }
 
     public void setStatus(int i){
@@ -57,15 +65,15 @@ public class Player{
     }
 
     public ArrayList<Hero> getHeros(){
-        return this.herosFactory.getHeros();
+        return this.herosTeam.getHeros();
     }
 
     public HerosInfo getHeroFact(){
-        return this.herosFactory;
+        return this.herosTeam;
     }
 
     public Hero getHero(int i){
-        return this.herosFactory.getHero(i);
+        return this.herosTeam.getHero(i);
     }
 
     public void displayTypes(){
@@ -76,9 +84,11 @@ public class Player{
     }
 
     public boolean checkWin(){
-        for (Hero h : this.herosFactory.getHeros()){
+        for (Hero h : this.herosTeam.getHeros()){
             // if one of heros are in monster's nexus
-            return true;
+            if (h.getPos()[0] == 0){
+                return true;
+            }
         }
         return false;
     }
