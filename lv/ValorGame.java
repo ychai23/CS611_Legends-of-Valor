@@ -1,27 +1,24 @@
-import javax.sound.sampled.SourceDataLine;
-
-public class ValorGame extends GameControl {
+public class ValorGame {
     Player volarPlayer = null;
     MonstersInfo mf = null;
     ValorWorld map = null;
 
+    public ValorGame() {
+        //SetUp Hero For 3 Lane
+        this.volarPlayer = new Player(3);
+        this.mf = new MonstersInfo(this.volarPlayer.getHeroFact(),3);
+        this.map = new ValorWorld(8, this.volarPlayer, this.mf);
+    }
 
     public void startSetUp(){
         System.out.println("Welcome to Game: Legends of Valor!");
-        //SetUp Hero For 3 Lane
-        volarPlayer = new Player(3);
-        mf = new MonstersInfo(volarPlayer.getHeroFact(),3);
-
-        ValorWorld map = new ValorWorld(8, volarPlayer, mf);
-        System.out.println(map.toString());
         
         while (true){
             char move = ' ';
             for (Hero h : this.volarPlayer.getHeros()){
-                System.out.println(h.getName() + " 's turn.");
-                move = h.move(this.map, h, this.mf, this.volarPlayer.getHeroFact());
+                move = h.move(this.map, this.mf, this.volarPlayer.getHeroFact());
                 this.map.respond(h);
-                if (volarPlayer.getWinStatus()){
+                if (this.volarPlayer.checkWin()){
                     System.out.println("You won! ");
                     break;
                 }
@@ -29,7 +26,7 @@ public class ValorGame extends GameControl {
                     break;
                 }
             }
-            if (move == 'q' || volarPlayer.getWinStatus()){
+            if (move == 'q' || this.volarPlayer.checkWin()){
                 break;
             }
         }

@@ -22,7 +22,7 @@ public class GameControl{
             char move = ' ';
             for (Hero h : this.p.getHeros()){
                 System.out.println(h.getName() + " 's turn.");
-                move = h.move(this.w, h, this.mf, this.p.getHeroFact());
+                move = h.move(this.w, this.mf, this.p.getHeroFact());
                 this.w.respond(h);
                 if (p.getWinStatus()){
                     System.out.println("You won! ");

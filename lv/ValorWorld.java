@@ -108,15 +108,22 @@ public class ValorWorld{
             }
             s+="\n";
             for (int j=0; j<size; j++){
+                String monsterName = "";
+                String heroName = "";
                 for (int k=0; k<3; k++){
-                    if (this.player.getHero(i).getPos()[0] == i && this.player.getHero(0).getPos()[1] == j) {
-                        s += this.player.getHero(i).getSymbol() + "     |";
-                    } else if (this.mf.getMonster(i).getPos()[0] == i && this.mf.getMonster(i).getPos()[1] == j){
-                        s += this.mf.getMonster(i).getSymbol() + "     |";
-                    } else{
-                        s+="|       |  ";
-                    }
-                }
+                    if (this.player.getHero(k).getPos()[0] == i && this.player.getHero(k).getPos()[1] == j) {
+                        heroName = this.player.getHero(k).getSymbol()+"";break;
+                    }}
+                    for (int k=0; k<3; k++){
+                    if (this.mf.getMonster(k).getPos()[0] == i && this.mf.getMonster(k).getPos()[1] == j){
+                        monsterName = this.mf.getMonster(k).getSymbol()+"";break;
+                    }} 
+
+                if(monsterName.equals("")){monsterName = "   ";}
+                else{monsterName = " "+monsterName;}
+                if(heroName.equals("")){heroName = "   ";}
+                else{heroName = " "+heroName;}
+                s+="|"+ monsterName+" "+heroName+"|  ";
             }
             s+="\n";
             for (int j=0; j<size; j++){
