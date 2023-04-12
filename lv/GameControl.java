@@ -14,7 +14,7 @@ public class GameControl{
         // code to run game
         System.out.println("****** LEGENDS: MONSTORS AND HEROS ******");
         System.out.println("Welcome! Please set-up your party");
-        this.p = new Player();
+        this.p = new Player(3);
         this.mf = new MonstersInfo(p.getHeroFact());
         this.w = new ValorWorld(8, p, mf);
 
@@ -22,7 +22,7 @@ public class GameControl{
             char move = ' ';
             for (Hero h : this.p.getHeros()){
                 System.out.println(h.getName() + " 's turn.");
-                move = this.p.move(this.w, h);
+                move = h.move(this.w, h, this.mf, this.p.getHeroFact());
                 this.w.respond(h);
                 if (p.getWinStatus()){
                     System.out.println("You won! ");

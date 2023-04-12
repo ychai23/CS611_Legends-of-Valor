@@ -38,20 +38,45 @@ public class ValorWorld{
         return this.size;
     }
 
+    public boolean heroOccupied(int i, int j){
+        for (Hero h : this.player.getHeros()){
+            if (h.getPos()[0] == i && h.getPos()[0] == j){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void respond(Hero h){
-        // int[] pos = p.getPos();
-
-        // Grid g = this.map[pos[0]][pos[1]];
-
-        // if (g.getType() == ' ') {
-        //     System.out.println("**** You have entered a BATTLE Grid! ****");
-        //     ((BattleGrid) g).runBattle(p);
-        // }
-        // if (g.getType() == 'M') {
-        //     System.out.println("**** You have entered a MARKET Grid! ****");
-        //     ((MarketGrid) g).runMarket(this.player);
-        // }
-
+        int[] pos = h.getPos();
+        Grid g = this.map[pos[0]][pos[1]];
+        char type = g.getType();
+        switch(type){
+            case 'N':
+                Nexus n = (Nexus)g;
+                n.effect();
+                break;
+            case 'I':
+                Inaccessible i = (Inaccessible)g;
+                i.effect();
+                break;
+            case 'P':
+                Plain plain = (Plain)g;
+                plain.effect();
+                break;
+            case 'B':
+                Bush b = (Bush)g;
+                b.effect();
+                break;
+            case 'C':
+                Cave c = (Cave)g;
+                c.effect();
+                break;
+            case 'K':
+                Koulou k = (Koulou)g;
+                k.effect();
+                break;
+        }
     }
 
     public String toString(){

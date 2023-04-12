@@ -62,6 +62,10 @@ public class Monster{
         this.symbol = s;
     }
 
+    public void setPos(int[] pos){
+        this.position = pos;
+    }
+
     public double receiveWeaponDamage(double damage){
         // can dodge
         Random rand = new Random();
