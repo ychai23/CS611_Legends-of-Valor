@@ -10,7 +10,7 @@ public class ArmorReader {
     public ArrayList<Armor> readArmors(int type){
         ArrayList<Armor> allArmors = new ArrayList<Armor>();
         String line = "";
-        String filename = "./ConfigFiles/Armory.txt";
+        String filename = "lv/ConfigFiles/Armory.txt";
 
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             br.readLine(); // this will read the first line

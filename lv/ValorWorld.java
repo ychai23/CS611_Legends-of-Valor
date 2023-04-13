@@ -54,11 +54,11 @@ public class ValorWorld{
         switch(type){
             case 'N':
                 Nexus n = (Nexus)g;
-                n.effect();
+                n.effect(h);
                 break;
             case 'I':
                 Inaccessible i = (Inaccessible)g;
-                i.effect();
+                i.effect(this, h);
                 break;
             case 'P':
                 Plain plain = (Plain)g;

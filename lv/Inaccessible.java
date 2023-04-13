@@ -1,12 +1,13 @@
-public class Inaccessible extends Grid implements ValorGrid{
+public class Inaccessible extends Grid{
     protected char type = 'I';
 
     public char getType(){
         return this.type;
     }
 
-    @Override
-    public void effect() {
-
+    
+    public void effect(ValorWorld map, Hero h) {
+        System.out.println("Inaccessable Space! Move Back!");
+        
     }
 }

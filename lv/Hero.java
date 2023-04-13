@@ -1,6 +1,8 @@
 import java.util.Random;
 import java.util.Scanner;
 
+import javax.xml.transform.Source;
+
 /*
  * Hero class that contains all the actions a hero can take during the game
  * 
@@ -148,7 +150,7 @@ public class Hero{
                                 System.out.println("You can't move that way, out of the map.");
                                 break;
                             }
-                            if (map[x][y-1].getType() == 'X') {
+                            if (map[x][y-1].getType() == 'I') {
                                 System.out.println("You can't move that way, Illegal Grid.");
                                 break;
                             }
@@ -160,7 +162,7 @@ public class Hero{
                                 System.out.println("You can't move that way, out of the map.");
                                 break;
                             }
-                            if (map[x+1][y].getType() == 'X') {
+                            if (map[x+1][y].getType() == 'I') {
                                 System.out.println("You can't move that way, Illegal Grid.");
                                 break;
                             }
@@ -172,7 +174,7 @@ public class Hero{
                                 System.out.println("You can't move that way, out of the map.");
                                 break;
                             }
-                            if (map[x][y+1].getType() == 'X') {
+                            if (map[x][y+1].getType() == 'I') {
                                 System.out.println("You can't move that way, Illegal Grid.");
                                 break;
                             }
@@ -196,7 +198,8 @@ public class Hero{
                             s = this.teleport(w, hf);
                             break;
                 case 'r':   //recall
-                            this.recall();
+                            // this.recall();
+                            x = 7;
                             s = true;
                             break;
                 case 'p':   //pass
@@ -543,7 +546,11 @@ public class Hero{
 
     public void recall(){
         // return to their specific Nexus (where they originally spawned)
-        this.setPos(this.birth);
+        System.out.println(this.getName()+" Recall to Nexus.");
+        int[] pos = getPos();
+        System.out.println("Recall to Pos(7 ," +pos[1]+")");
+        this.setPos(new int[]{7, pos[1]});
+        
     }
 
     public void respawn(){
