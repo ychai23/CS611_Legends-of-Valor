@@ -19,9 +19,17 @@ public class Hero{
     protected double HP;
     protected double MP;
     protected double defense;
+    protected double curDefense;
+
     protected double strengthV;
+    protected double curDtrengthV;
+
     protected double dexterityV;
+    protected double curDexterityV;
+
     protected double agilityV;
+    protected double curAgilityV;
+
     protected double gold;
     protected double dodge;
     protected double exp;
@@ -120,6 +128,29 @@ public class Hero{
         this.position = pos;
     }
 
+    public void setCurDexterityV(){
+        this.curDexterityV = this.dexterityV*1.1;
+    }
+
+    public void setCurDefense(){
+        this.curDefense = this.defense*1.1;
+    }
+
+    public void setCurDtrengthV(){
+        this.curDtrengthV = this.strengthV*1.1;
+    }
+
+    public void setCurAgilityV(){
+        this.curAgilityV = this.agilityV*1.1;
+    }
+
+    public void clear(){
+        this.curDefense = this.defense;
+        this.curDexterityV = this.dexterityV;
+        this.curDtrengthV = this.strengthV;
+        this.curAgilityV = this.agilityV;
+    }
+
     public char move(ValorWorld w, MonstersInfo mf, HerosInfo hf){
         Grid[][] map = w.getMap();
         int size = w.getSize();
@@ -131,7 +162,7 @@ public class Hero{
         while (!s){
             System.out.println(w);
             System.out.println(this.getName() + "(H" + this.index + ")" + " 's turn.");
-            move = this.control.getMove();
+            move = this.control.getMove();int[] newPost = {x,y};
             switch (move) {
                 case 'w':   //move up
                             if (x-1<0) {
@@ -144,6 +175,9 @@ public class Hero{
                             }
                             x-=1;
                             s = true;
+                            newPost[0] = x;
+                            newPost[1] = y;
+                            this.setPos(newPost);
                             break;
                 case 'a':   //move left
                             if (y-1<0) {
@@ -156,6 +190,9 @@ public class Hero{
                             }
                             y-=1;
                             s = true;
+                            newPost[0] = x;
+                            newPost[1] = y;
+                            this.setPos(newPost);
                             break;
                 case 's':   //move up
                             if (x+1>size) {
@@ -168,6 +205,9 @@ public class Hero{
                             }
                             x+=1;
                             s = true;
+                            newPost[0] = x;
+                            newPost[1] = y;
+                            this.setPos(newPost);
                             break;
                 case 'd':   //move right
                             if (y+1>size) {
@@ -180,6 +220,9 @@ public class Hero{
                             }
                             y+=1;
                             s = true;
+                            newPost[0] = x;
+                            newPost[1] = y;
+                            this.setPos(newPost);
                             break;
                 case 'c':   //change inventory
                             this.changeInv();
@@ -198,8 +241,8 @@ public class Hero{
                             s = this.teleport(w, hf);
                             break;
                 case 'r':   //recall
-                            // this.recall();
-                            x = 7;
+                            this.recall();
+                            // x = 7;
                             s = true;
                             break;
                 case 'p':   //pass
@@ -210,8 +253,7 @@ public class Hero{
                             break;
             }
         }
-        int[] newPost = {x,y};
-        this.setPos(newPost);
+
         return move;
     }
 
@@ -402,7 +444,7 @@ public class Hero{
             double HP = m.receiveWeaponDamage(damage);
             if (HP<=0){
                 System.out.println(m.getName() + " has fainted.");
-                mf.replaceMonster(monsterID);
+                mf.replaceMonster(monsterID, mf.getMonster(monsterID).getPos()[1], this.getLevel());
             }
             success = true;
         }
@@ -430,7 +472,7 @@ public class Hero{
             double HP = m.receiveSpellDamage(s, damage);
             if (HP<=0){
                 System.out.println(m.getName() + " has fainted.");
-                mf.replaceMonster(monsterID);
+                mf.replaceMonster(monsterID, mf.getMonster(monsterID).getPos()[1], this.getLevel());
             }
             success = true;
         }
@@ -488,10 +530,16 @@ public class Hero{
     public boolean inRange(ValorWorld w, Monster m){
         // determine if a monster is in range (neighbor grids of the hero)
         int[] monsterPos = m.getPos();
-        if ((this.getPos()[0] - 1 == monsterPos[0] && this.getPos()[0] - 1 == monsterPos[1]) ||
-            (this.getPos()[0] + 1 == monsterPos[0] && this.getPos()[0] - 1 == monsterPos[1]) ||
-            (this.getPos()[0] - 1 == monsterPos[0] && this.getPos()[0] + 1 == monsterPos[1]) ||
-            (this.getPos()[0] + 1 == monsterPos[0] && this.getPos()[0] + 1 == monsterPos[1])){
+        if(monsterPos == null){return false;}
+        if ((this.getPos()[0] - 1 == monsterPos[0] && this.getPos()[0]  == monsterPos[1]) ||
+        (this.getPos()[0] + 1 == monsterPos[0] && this.getPos()[0]  == monsterPos[1]) ||
+        (this.getPos()[0]  == monsterPos[0] && this.getPos()[0] + 1 == monsterPos[1]) ||
+        (this.getPos()[0]  == monsterPos[0] && this.getPos()[0] + 1 == monsterPos[1]) ||
+        (this.getPos()[0] - 1 == monsterPos[0] && this.getPos()[0] - 1 == monsterPos[1]) ||
+        (this.getPos()[0] + 1 == monsterPos[0] && this.getPos()[0] - 1 == monsterPos[1]) ||
+        (this.getPos()[0] - 1 == monsterPos[0] && this.getPos()[0] + 1 == monsterPos[1]) ||
+        (this.getPos()[0] + 1 == monsterPos[0] && this.getPos()[0] + 1 == monsterPos[1]) ||
+        (this.getPos()[0]  == monsterPos[0] && this.getPos()[0]  == monsterPos[1])){
                 return true;
             }
         return false;
@@ -520,11 +568,11 @@ public class Hero{
         System.out.print("Enter the location in respect to the target hero, side or below? enter character (s/b): ");
         char pos = sc.next().charAt(0);
         if (pos == 's'){
-            if (map[heroPos[0]][heroPos[1]+1].getType() != 'X' && !w.heroOccupied(heroPos[0], heroPos[1]+1)) {
+            if (heroPos[1] + 1 <= 7 &&map[heroPos[0]][heroPos[1]+1].getType() != 'I' && !w.heroOccupied(heroPos[0], heroPos[1]+1)) {
                 System.out.println("Teleported to the Right Successfully.");
                 this.setPos(new int[]{heroPos[0], heroPos[1]+1});
                 success = true;
-            } else if (map[heroPos[0]][heroPos[1]-1].getType() != 'I' && !w.heroOccupied(heroPos[0], heroPos[1]-1)){
+            } else if (heroPos[1] -1 >= 0 && map[heroPos[0]][heroPos[1]-1].getType() != 'I' && !w.heroOccupied(heroPos[0], heroPos[1]-1)){
                 System.out.println("Teleported to the Left Successfully.");
                 this.setPos(new int[]{heroPos[0], heroPos[1]-1});
                 success = true;
@@ -557,6 +605,7 @@ public class Hero{
         // return to their specific Nexus (where they originally spawned) - change location
         // reset status base on their current lvl
         this.recall();
+        System.out.println("Respawn");
         this.HP = this.maxHP;
         this.MP = this.maxMP;
     }

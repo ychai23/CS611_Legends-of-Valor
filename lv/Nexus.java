@@ -6,6 +6,13 @@ public class Nexus extends Grid{
     }
 
     public void effect(Hero h) {
+        System.out.println(h.getSymbol()+" back to Home.");
+
+        h.clear();
         h.respawn();
+    }
+
+    public void effect(Monster m){
+        m.clear();
     }
 }

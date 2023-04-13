@@ -6,8 +6,11 @@ public class Inaccessible extends Grid{
     }
 
     
-    public void effect(ValorWorld map, Hero h) {
+    public void effect(Hero h) {
         System.out.println("Inaccessable Space! Move Back!");
-        
+    }
+
+    public void effect(Monster m){
+        return;
     }
 }

@@ -14,8 +14,15 @@ public class Monster{
     protected int level;
     protected double HP;
     protected double baseDam;
+    protected double curBaseDam;
+
     protected double defenseV;
+    protected double curDefenseV;
+
+
     protected double dodgeV;
+    protected double curDodgeV;
+
     protected double dodgeC;
     protected String symbol;
     protected int status;
@@ -69,9 +76,26 @@ public class Monster{
         this.position = pos;
     }
 
+    public void setCurBaseDamage(){
+        this.curBaseDam = baseDam*1.1;
+    }
+    public void setCurDefense(){
+        this.curDefenseV = defenseV*1.1;
+    }
+    public void setCurDodgeV(){
+        this.curDodgeV = dodgeV*1.1;
+    }
+
+    public void clear(){
+        this.curBaseDam = this.baseDam;
+        this.curDefenseV = this.defenseV;
+        this.curDodgeV = this.dodgeV;
+    }
+
     public void move(ValorWorld w, MonstersInfo mf, HerosInfo hf){
         Grid[][] map = w.getMap();
         int size = w.getSize();
+        if(this.getPos() == null){return;}
         int x = this.getPos()[0];
         int y = this.getPos()[1];
         boolean s = false;
@@ -93,6 +117,7 @@ public class Monster{
     }
 
     public boolean checkWin(){
+        if(getPos() == null){return false;}
         int x = this.getPos()[0];
         int y = this.getPos()[1];
         if(x== 7){return true;}

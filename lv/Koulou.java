@@ -1,12 +1,20 @@
-public class Koulou extends Grid implements ValorGrid{
+public class Koulou extends Grid{
     protected char type = 'K';
 
     public char getType(){
         return this.type;
     }
 
-    @Override
-    public void effect() {
 
+    public void effect(Hero h) {
+        System.out.println(h.getSymbol()+" steped on Koulou. Buff on Strength.");
+        h.clear();
+        h.setCurDtrengthV();
+    }
+
+    public void effect(Monster m){
+        System.out.println(m.getSymbol()+" steped on Koulou. Buff on Base Damage.");
+        m.clear();
+        m.setCurBaseDamage();
     }
 }

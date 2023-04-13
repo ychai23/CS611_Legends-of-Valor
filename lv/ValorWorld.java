@@ -47,6 +47,39 @@ public class ValorWorld{
         return false;
     }
 
+    public void respond(Monster h){
+        int[] pos = h.getPos();
+        Grid g = this.map[pos[0]][pos[1]];
+        char type = g.getType();
+        switch(type){
+            case 'N':
+                Nexus n = (Nexus)g;
+                n.effect(h);
+                break;
+            case 'I':
+                Inaccessible i = (Inaccessible)g;
+                i.effect(h);
+                break;
+            case 'P':
+                Plain plain = (Plain)g;
+                plain.effect(h);
+                break;
+            case 'B':
+                Bush b = (Bush)g;
+                b.effect(h);
+                break;
+            case 'C':
+                Cave c = (Cave)g;
+                c.effect(h);
+                break;
+            case 'K':
+                Koulou k = (Koulou)g;
+                k.effect(h);
+                break;
+        }
+    }
+    
+
     public void respond(Hero h){
         int[] pos = h.getPos();
         Grid g = this.map[pos[0]][pos[1]];
@@ -58,23 +91,23 @@ public class ValorWorld{
                 break;
             case 'I':
                 Inaccessible i = (Inaccessible)g;
-                i.effect(this, h);
+                i.effect(h);
                 break;
             case 'P':
                 Plain plain = (Plain)g;
-                plain.effect();
+                plain.effect(h);
                 break;
             case 'B':
                 Bush b = (Bush)g;
-                b.effect();
+                b.effect(h);
                 break;
             case 'C':
                 Cave c = (Cave)g;
-                c.effect();
+                c.effect(h);
                 break;
             case 'K':
                 Koulou k = (Koulou)g;
-                k.effect();
+                k.effect(h);
                 break;
         }
     }
@@ -111,10 +144,12 @@ public class ValorWorld{
                 String monsterName = "";
                 String heroName = "";
                 for (int k=0; k<3; k++){
+                    if(this.player.getHero(k).getPos() == null){break;}
                     if (this.player.getHero(k).getPos()[0] == i && this.player.getHero(k).getPos()[1] == j) {
                         heroName = this.player.getHero(k).getSymbol()+"";break;
                     }}
                     for (int k=0; k<3; k++){
+                    if(this.mf.getMonster(k).getPos() == null){break;}
                     if (this.mf.getMonster(k).getPos()[0] == i && this.mf.getMonster(k).getPos()[1] == j){
                         monsterName = this.mf.getMonster(k).getSymbol()+"";break;
                     }} 
