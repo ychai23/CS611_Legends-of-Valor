@@ -26,8 +26,18 @@ public class SpellReader {
             br.readLine(); // this will read the first line
             while ((line = br.readLine()) != null) {  
                     String[] hs = line.split("\\s+");    // use comma as separator  
-                    Spell s = new Spell(hs[0], Double.parseDouble(hs[1]), Integer.parseInt(hs[2]), Double.parseDouble(hs[3]), Double.parseDouble(hs[4]), 's', t);
-                    allSpells.add(s);
+                    if (t=='f') {
+                        Spell s = new FireSpell(hs[0], Double.parseDouble(hs[1]), Integer.parseInt(hs[2]), Double.parseDouble(hs[3]), Double.parseDouble(hs[4]), 's', t);
+                        allSpells.add(s);
+                    }
+                    if (t=='i') {
+                        Spell s = new IceSpell(hs[0], Double.parseDouble(hs[1]), Integer.parseInt(hs[2]), Double.parseDouble(hs[3]), Double.parseDouble(hs[4]), 's', t);
+                        allSpells.add(s);
+                    }
+                    if (t=='l') {
+                        Spell s = new LighteningSpell(hs[0], Double.parseDouble(hs[1]), Integer.parseInt(hs[2]), Double.parseDouble(hs[3]), Double.parseDouble(hs[4]), 's', t);
+                        allSpells.add(s);
+                    }
             }
         } catch (NumberFormatException | IOException e) {
             // TODO Auto-generated catch block

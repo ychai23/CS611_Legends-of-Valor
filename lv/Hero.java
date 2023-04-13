@@ -1,8 +1,6 @@
 import java.util.Random;
 import java.util.Scanner;
 
-import javax.xml.transform.Source;
-
 /*
  * Hero class that contains all the actions a hero can take during the game
  * 
@@ -22,7 +20,7 @@ public class Hero{
     protected double curDefense;
 
     protected double strengthV;
-    protected double curDtrengthV;
+    protected double curStrengthV;
 
     protected double dexterityV;
     protected double curDexterityV;
@@ -136,7 +134,7 @@ public class Hero{
     }
 
     public void setCurDtrengthV(){
-        this.curDtrengthV = this.strengthV*1.1;
+        this.curStrengthV = this.strengthV*1.1;
     }
 
     public void setCurAgilityV(){
@@ -146,7 +144,7 @@ public class Hero{
     public void clear(){
         this.curDefense = this.defense;
         this.curDexterityV = this.dexterityV;
-        this.curDtrengthV = this.strengthV;
+        this.curStrengthV = this.strengthV;
         this.curAgilityV = this.agilityV;
     }
 
@@ -404,7 +402,7 @@ public class Hero{
             }
             if (pt.equals("Strength")) {
                 System.out.println("Your strength gained " + p.getHeal()); 
-                this.curDtrengthV += p.getHeal();
+                this.curStrengthV += p.getHeal();
             }
             if (pt.equals("Dexterity")) {
                 System.out.println("Your dexterity gained " + p.getHeal()); 
@@ -435,7 +433,7 @@ public class Hero{
             
             Weapon w = this.inventory.getMainhand();
             Monster m = mf.getMonster(monsterID);
-            double damage = (w.getDamage() + this.curDtrengthV) * 0.05;
+            double damage = (w.getDamage() + this.curStrengthV) * 0.05;
 
             // attack
             System.out.println(this.name + " have attacked monster" + m.getName() + " with " + w.getName());
@@ -505,7 +503,7 @@ public class Hero{
 
     public void displayHero(){
         System.out.println("Name: " + this.getName());
-        System.out.println("Level: " + this.level + " | " + "Health: " + this.HP + " | " + "Mana: " + this.MP + " | " + "Strength: " + this.curDtrengthV + " | " + "Defense: " + this.defense + " | " + "Agility: " + this.curAgilityV + " | " + "Dexterity: " + this.curDexterityV + " | " + "Money: " + this.gold + " | " + "Exp: " + this.exp + " | " + "Status: " + this.status + " | ");
+        System.out.println("Level: " + this.level + " | " + "Health: " + this.HP + " | " + "Mana: " + this.MP + " | " + "Strength: " + this.curStrengthV + " | " + "Defense: " + this.defense + " | " + "Agility: " + this.curAgilityV + " | " + "Dexterity: " + this.curDexterityV + " | " + "Money: " + this.gold + " | " + "Exp: " + this.exp + " | " + "Status: " + this.status + " | ");
     }
 
     public void displayInventory(){

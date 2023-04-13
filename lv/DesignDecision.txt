@@ -1,0 +1,3 @@
+Design Evaluation:
+
+We implemented Legends of Valor on top of the original Legends of MH game using Yuanming’s code. We did so since our designs are very similar and we decided to go with my code. Our implementation are both strong in terms of scalability and abstractions we applied for different classes. We also had strong independence between classes to separate out the functionalities. The similarities of our design allow us to work together easily and implement this different version of the game. We felt our decision is correct because we felt comfortable understanding the code together and implementing different structures and features without much difficulty on communication.

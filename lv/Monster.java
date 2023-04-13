@@ -1,8 +1,4 @@
 import java.util.Random;
-
-import javax.lang.model.util.ElementScanner14;
-import javax.management.monitor.MonitorSettingException;
-
 /*
  * Monster class that contains all the actions a monster can take during the game
  * 
