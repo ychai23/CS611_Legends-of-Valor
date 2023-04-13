@@ -53,7 +53,7 @@ read class
 
 ## How to compile and run
 ---------------------------------------------------------------------------
-1. Navigate to the directory "mh" after unzipping the files
+1. Navigate to the directory "lv" after unzipping the files
 2. Run the following instructions:
 javac *.java
 java Main
