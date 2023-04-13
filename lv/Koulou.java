@@ -1,3 +1,7 @@
+/*
+ * Koulou class that give buff strength on hero and base damage on monster when it enters
+ * 
+ */
 public class Koulou extends Grid{
     protected char type = 'K';
 

@@ -19,7 +19,6 @@ public class WeaponReader {
                     allWeapons.add(w);
             }
         } catch (NumberFormatException | IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }  
         return allWeapons;

@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 /*
- * Potion class that provides template for any potion
+ * Potion class that provides template for any potion that can be consumed
  */
 public class Potion extends Item implements Consumable{
     private String[] ptype;

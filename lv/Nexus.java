@@ -1,3 +1,8 @@
+/*
+ * Nexus class that offer heros the abilility to interact with a market
+ * 
+ */
+
 public class Nexus extends Grid{
     protected char type = 'N';
 

@@ -1,3 +1,7 @@
+/*
+ * Cave class that give agility on hero and defense on monster when it enters
+ * 
+ */
 public class Cave extends Grid{
     protected char type='C';
 

@@ -1,5 +1,5 @@
 /*
- * Create the game and run the game
+ * Create the valor game and run the game
  * 
  */
 public class Main{

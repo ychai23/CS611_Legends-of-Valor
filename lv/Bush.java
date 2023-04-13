@@ -1,3 +1,7 @@
+/*
+ * Bush class that give dexiterity on both hero and monster when it enters
+ * 
+ */
 public class Bush extends Grid{
     protected char type = 'B';
 

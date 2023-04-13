@@ -1,3 +1,7 @@
+/*
+ * Fightable interface that allows fighting
+ * 
+ */
 public interface Fightable {
     public int[] getPos();
     public void clear();

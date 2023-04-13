@@ -1,5 +1,9 @@
 import java.util.Random;
 
+/*
+ * ValorWorld class where the map is created and player can make move/visualize the map
+ */
+
 public class ValorWorld{
     private Grid[][] map;
     private Player player;

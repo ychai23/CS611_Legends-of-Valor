@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.util.InputMismatchException;
 /*
- * Control class that take input from player for option
+ * Control class that display options and take input from a hero for move
  */
 public class Control{
     private final char[] options = {'w', 'a', 's', 'd', 'q', 'i', 'm', 'c', 'p', 't', 'u', 'l', 'e', 'r'};

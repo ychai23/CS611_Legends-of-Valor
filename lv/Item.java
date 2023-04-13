@@ -1,5 +1,5 @@
 /*
- * Item class that provides the basic information any item would have
+ * Item class that provides the basic information any item would have and allows to be traded
  * 
  */
 public class Item implements Tradable{

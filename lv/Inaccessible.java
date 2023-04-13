@@ -1,3 +1,7 @@
+/*
+ * Inaccessible class that does not allow hero to enter
+ * 
+ */
 public class Inaccessible extends Grid{
     protected char type = 'I';
 

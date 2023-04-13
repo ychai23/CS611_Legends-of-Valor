@@ -1,3 +1,8 @@
+/*
+ * Plain class that has no special effects on hero or monster
+ * 
+ */
+
 public class Plain extends Grid {
     protected char type = 'P';
 
