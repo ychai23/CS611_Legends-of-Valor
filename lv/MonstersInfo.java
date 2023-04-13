@@ -63,6 +63,13 @@ public class MonstersInfo{
         return this.monsters.get(idx);
     }
 
+    public boolean checkWin(){
+        for(Monster m: this.getMonsters()){
+            if(m.checkWin()){return true;}
+        }
+        return false;
+    }
+
     public void receiveWeaponDamage(int idx, double d){
         this.getMonster(idx).receiveWeaponDamage(d);
     }

@@ -54,6 +54,9 @@ public class Hero{
         this.strengthV = strength;
         this.dexterityV = dexterity;
         this.agilityV = agility;
+        this.curDtrengthV = strength;
+        this.curDexterityV = dexterity;
+        this.curAgilityV = agility;
         this.gold = m;
         this.defense = 0;
         this.dodge = this.agilityV*0.001;
@@ -128,10 +131,6 @@ public class Hero{
 
     public void setCurDexterityV(){
         this.curDexterityV = this.dexterityV*1.1;
-    }
-
-    public void setCurDefense(){
-        this.curDefense = this.defense*1.1;
     }
 
     public void setCurDtrengthV(){
@@ -504,7 +503,7 @@ public class Hero{
 
     public void displayHero(){
         System.out.println("Name: " + this.getName());
-        System.out.println("Level: " + this.level + " | " + "Health: " + this.HP + " | " + "Mana: " + this.MP + " | " + "Strength: " + this.curStrengthV + " | " + "Defense: " + this.defense + " | " + "Agility: " + this.agilityV + " | " + "Dexterity: " + this.dexterityV + " | " + "Money: " + this.gold + " | " + "Exp: " + this.exp + " | " + "Status: " + this.status + " | ");
+        System.out.println("Level: " + this.level + " | " + "Health: " + this.HP + " | " + "Mana: " + this.MP + " | " + "Strength: " + this.curStrengthV + " | " + "Defense: " + this.defense + " | " + "Agility: " + this.curAgilityV + " | " + "Dexterity: " + this.curDexterityV + " | " + "Money: " + this.gold + " | " + "Exp: " + this.exp + " | " + "Status: " + this.status + " | ");
     }
 
     public void displayInventory(){
