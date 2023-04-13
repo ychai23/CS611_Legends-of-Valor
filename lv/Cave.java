@@ -7,12 +7,14 @@ public class Cave extends Grid{
 
 
     public void effect(Hero h) {
+        System.out.println(h.getSymbol()+" steped on Cave. Buff on Agility.");
         h.clear();
         h.setCurAgilityV();
     }
 
     public void effect(Monster m){
+        System.out.println(m.getSymbol()+" steped on Cave. Buff on Defense.");
         m.clear();
-        m.setCurDodgeV();
+        m.setCurDefense();
     }
 }

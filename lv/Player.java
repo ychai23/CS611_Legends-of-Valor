@@ -9,9 +9,11 @@ public class Player{
     private HerosInfo herosTeam;
     private int status = 0;
     private boolean win = false;
+    private int size;
 
     public Player(int number){
         HerosInfo herosFactory;
+        this.size = number;
         ArrayList<Hero> heros = new ArrayList<Hero>();
         // get user inputs to create the heros
         Scanner sc = new Scanner(System.in);
@@ -45,11 +47,15 @@ public class Player{
         System.out.println("You have formed your hero team.");
         this.herosTeam.displayHeros();
         for(int num = 0; num < 3; num++){
-            this.herosTeam.getHero(num).setPos(new int[]{7, 3*(num)+1});
-            this.herosTeam.getHero(num).setBirth(new int[]{7, 3*(num)+1});
+            this.herosTeam.getHero(num).setPos(new int[]{7, 3*(num)});
+            this.herosTeam.getHero(num).setBirth(new int[]{7, 3*(num)});
             this.herosTeam.getHero(num).setSymbol("H"+num);
             this.herosTeam.getHero(num).setIndex(num);
         }
+    }
+
+    public int getSize(){
+        return this.size;
     }
 
     public void setStatus(int i){

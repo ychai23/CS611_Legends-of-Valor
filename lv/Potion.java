@@ -3,7 +3,7 @@ import java.util.Arrays;
 /*
  * Potion class that provides template for any potion
  */
-public class Potion extends Item{
+public class Potion extends Item implements Consumable{
     private String[] ptype;
     private double heal;
 
@@ -12,6 +12,10 @@ public class Potion extends Item{
         this.type = 'p';
         this.ptype = ptype;
         this.heal = heal;
+    }
+
+    public void consume(){
+        System.out.println("You drank the potion yayayayay!");
     }
 
     public double getHeal(){

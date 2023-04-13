@@ -13,13 +13,13 @@ public class SpellReader {
         String filename = "";
         char t = ' ';
         if (type==1) {
-            filename = "lv/ConfigFiles/FireSpells.txt"; t = 'f';
+            filename = "ConfigFiles/FireSpells.txt"; t = 'f';
         }
         if (type==2) {
-            filename = "lv/ConfigFiles/IceSpells.txt"; t = 'i';
+            filename = "ConfigFiles/IceSpells.txt"; t = 'i';
         }
         else {
-            filename = "lv/ConfigFiles/LightningSpells.txt"; t = 'l';
+            filename = "ConfigFiles/LightningSpells.txt"; t = 'l';
         }
 
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {

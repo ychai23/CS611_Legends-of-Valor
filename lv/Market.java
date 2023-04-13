@@ -47,23 +47,21 @@ public class Market{
         this.display();
     }
 
-    public void runMarket(Player p){
-        System.out.print("Would you like to enter the market? y/n: ");
+    public void runMarket(Hero h){
+        System.out.print("Would you like " + h.getName() + h.getSymbol() + " to enter the market? y/n: ");
         Scanner sc = new Scanner(System.in);
         char c = ' ';
         c = sc.next().charAt(0);
 
         if (c == 'y'){
             this.displayMarket();
-            for (Hero h : p.getHeros()){
-                if (!h.getInv().isEmpty()){
-                    h.sellItem();
-                }
-                h.buyItem(this);
+            if (!h.getInv().isEmpty()){
+                h.sellItem();
             }
+            h.buyItem(this);
         }
         System.out.println();
-        System.out.println("Leaving the market...");
+        System.out.println(h.getName() + h.getSymbol() + " leaving the market...");
     }
 
     public void displayArmor(){

@@ -13,8 +13,8 @@ public class Bush extends Grid{
     }
 
     public void effect(Monster m){
-        System.out.println(m.getSymbol()+" steped on Bush. Buff on Defense.");
+        System.out.println(m.getSymbol()+" steped on Bush. Buff on Dodge.");
         m.clear();
-        m.setCurDefense();
+        m.setCurDodgeV();
     }
 }

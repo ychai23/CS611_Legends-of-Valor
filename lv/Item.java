@@ -2,7 +2,7 @@
  * Item class that provides the basic information any item would have
  * 
  */
-public class Item {
+public class Item implements Tradable{
     protected double price;
     protected String name;
     protected double level;
@@ -13,6 +13,10 @@ public class Item {
         this.price = price;
         this.level = l;
         this.type = 'n';
+    }
+
+    public void trade(){
+        System.out.println("You have traded the item" + this.getName());
     }
 
     public char getType(){

@@ -5,7 +5,7 @@ import java.util.Random;
  * Attack a hero
  * 
  */
-public class Monster{
+public class Monster implements Fightable{
     protected String name;
     protected int level;
     protected double HP;
@@ -91,28 +91,25 @@ public class Monster{
         this.curDodgeV = this.dodgeV;
     }
 
-    public void move(ValorWorld w, MonstersInfo mf, HerosInfo hf){
-        Grid[][] map = w.getMap();
-        int size = w.getSize();
-        if(this.getPos() == null){return;}
+    public char move(ValorWorld w, MonstersInfo mf, HerosInfo hf){
+        if(this.getPos() == null){return ' ';}
         int x = this.getPos()[0];
         int y = this.getPos()[1];
-        boolean s = false;
-        
+        // attack if possible
         for(Hero h : hf.getHeros()){
             if(this.inRange(w, h)){
-                double HP = h.receiveMonsterDamage(this.curBaseDam*0.01);
-                System.out.println("Monster "+ this.getSymbol()+ " Attacked "+h.getSymbol()+" Deal Damage "+ HP);
-                if (HP<=0){
+                System.out.println(this.getSymbol() + " attacked " + h.getSymbol());
+                double hp = h.receiveMonsterDamage(this.curBaseDam*0.01);
+                if (hp<=0){
                     System.out.println(h.getName() + " has been defeated, fainted");
                     h.respawn();
                 }
-                return;
+                return ' ';
             }
         }
-
-
+        // move forward
         this.setPos(new int[] {x+1, y});
+        return ' ';
     }
 
     public boolean checkWin(){
@@ -124,19 +121,19 @@ public class Monster{
     }
 
     public boolean inRange(ValorWorld w, Hero h){
-        // determine if a monster is in range (neighbor grids of the hero)
-        int[] monsterPos = h.getPos();
+        // determine if a hero is in range (neighbor grids of the monster)
+        int[] heroPos = h.getPos();
         // System.out.println("Hero POS:"+ monsterPos[0]+" " +monsterPos[1]);
         // System.out.println("Monster POS: "+getPos()[0] +" "+ getPos()[1]);
-        if ((this.getPos()[0] - 1 == monsterPos[0] && this.getPos()[0]  == monsterPos[1]) ||
-            (this.getPos()[0] + 1 == monsterPos[0] && this.getPos()[0]  == monsterPos[1]) ||
-            (this.getPos()[0]  == monsterPos[0] && this.getPos()[0] + 1 == monsterPos[1]) ||
-            (this.getPos()[0]  == monsterPos[0] && this.getPos()[0] + 1 == monsterPos[1]) ||
-            (this.getPos()[0] - 1 == monsterPos[0] && this.getPos()[0] - 1 == monsterPos[1]) ||
-            (this.getPos()[0] + 1 == monsterPos[0] && this.getPos()[0] - 1 == monsterPos[1]) ||
-            (this.getPos()[0] - 1 == monsterPos[0] && this.getPos()[0] + 1 == monsterPos[1]) ||
-            (this.getPos()[0] + 1 == monsterPos[0] && this.getPos()[0] + 1 == monsterPos[1]) ||
-            (this.getPos()[0]  == monsterPos[0] && this.getPos()[0]  == monsterPos[1])){
+        if ((this.getPos()[0] - 1 == heroPos[0] && this.getPos()[1]  == heroPos[1]) ||
+            (this.getPos()[0] + 1 == heroPos[0] && this.getPos()[1]  == heroPos[1]) ||
+            (this.getPos()[0]  == heroPos[0] && this.getPos()[1] + 1 == heroPos[1]) ||
+            (this.getPos()[0]  == heroPos[0] && this.getPos()[1] - 1 == heroPos[1]) ||
+            (this.getPos()[0] - 1 == heroPos[0] && this.getPos()[1] - 1 == heroPos[1]) ||
+            (this.getPos()[0] + 1 == heroPos[0] && this.getPos()[1] - 1 == heroPos[1]) ||
+            (this.getPos()[0] - 1 == heroPos[0] && this.getPos()[1] + 1 == heroPos[1]) ||
+            (this.getPos()[0] + 1 == heroPos[0] && this.getPos()[1] + 1 == heroPos[1]) ||
+            (this.getPos()[0]  == heroPos[0] && this.getPos()[1]  == heroPos[1])){
                 return true;
             }
         return false;
@@ -179,8 +176,8 @@ public class Monster{
         int idx = rand.nextInt(size);
         Hero h = hf.getHeros().get(idx);
 
-        double HP = h.receiveMonsterDamage(this.curBaseDam*0.01);
-        if (HP<=0){
+        double hp = h.receiveMonsterDamage(this.curBaseDam*0.01);
+        if (hp<=0){
             System.out.println(h.getName() + " has been defeated, fainted");
             h.respawn();
         }

@@ -9,7 +9,7 @@ import java.util.Scanner;
  * Change Main hand weapon/armor...
  * 
  */
-public class Hero{
+public class Hero implements Fightable{
     protected Control control;
     protected Inventory inventory;
     protected String name;
@@ -54,7 +54,7 @@ public class Hero{
         this.strengthV = strength;
         this.dexterityV = dexterity;
         this.agilityV = agility;
-        this.curDtrengthV = strength;
+        this.curStrengthV = strength;
         this.curDexterityV = dexterity;
         this.curAgilityV = agility;
         this.gold = m;
@@ -158,15 +158,16 @@ public class Hero{
 
         while (!s){
             System.out.println(w);
-            System.out.println(this.getName() + "(H" + this.index + ")" + " 's turn.");
-            move = this.control.getMove();int[] newPost = {x,y};
+            System.out.println(this.getName() + "(H" + this.index + ")" + "'s turn.");
+            move = this.control.getMove();
+            int[] newPost = {x,y};
             switch (move) {
                 case 'w':   //move up
                             if (x-1<0) {
                                 System.out.println("You can't move that way, out of the map.");
                                 break;
                             }
-                            if (map[x-1][y].getType() == 'i' || map[x-1][y].getType() == 'I') {
+                            if (map[x-1][y].getType() == 'I') {
                                 System.out.println("You can't move that way, Illegal Grid.");
                                 break;
                             }
@@ -191,7 +192,7 @@ public class Hero{
                             newPost[1] = y;
                             this.setPos(newPost);
                             break;
-                case 's':   //move up
+                case 's':   //move down
                             if (x+1>size) {
                                 System.out.println("You can't move that way, out of the map.");
                                 break;
@@ -239,18 +240,19 @@ public class Hero{
                             break;
                 case 'r':   //recall
                             this.recall();
-                            // x = 7;
                             s = true;
                             break;
                 case 'p':   //pass
                             s = true;
+                            break;
+                case 'i':   //display info
+                            this.displayHero();
                             break;
                 default:    
                             s = true;
                             break;
             }
         }
-
         return move;
     }
 
@@ -490,12 +492,12 @@ public class Hero{
         double n = rand.nextInt(100);
         
         if (n < this.dodge){
-            System.out.println(this.name + " have dodged monster's attack.");
+            System.out.println(this.name + this.getSymbol() + " have dodged monster's attack.");
         }
         else{
             double trueDam = damage - this.defense;
             this.HP -= trueDam;
-            System.out.println(this.name + " received " + trueDam + " damage from the monster.");
+            System.out.println(this.name + this.getSymbol() + " received " + trueDam + " damage from the monster.");
         }
         return this.HP;
 
@@ -513,10 +515,9 @@ public class Hero{
     public boolean displayInRange(ValorWorld w, MonstersInfo mf){
         boolean canAttack = false;
         // (display the monsters that you can attack) choose target to attack to
-        int i = 0;
         for (Monster m : mf.getMonsters()){
             if (this.inRange(w, m)){
-                System.out.print("[" + i + "] " + m.getName() + " is in range");
+                System.out.println("[" + m.getSymbol() + "] " + m.getName() + " is in range");
                 m.display();
                 canAttack = true;
             }
@@ -528,15 +529,15 @@ public class Hero{
         // determine if a monster is in range (neighbor grids of the hero)
         int[] monsterPos = m.getPos();
         if(monsterPos == null){return false;}
-        if ((this.getPos()[0] - 1 == monsterPos[0] && this.getPos()[0]  == monsterPos[1]) ||
-        (this.getPos()[0] + 1 == monsterPos[0] && this.getPos()[0]  == monsterPos[1]) ||
-        (this.getPos()[0]  == monsterPos[0] && this.getPos()[0] + 1 == monsterPos[1]) ||
-        (this.getPos()[0]  == monsterPos[0] && this.getPos()[0] + 1 == monsterPos[1]) ||
-        (this.getPos()[0] - 1 == monsterPos[0] && this.getPos()[0] - 1 == monsterPos[1]) ||
-        (this.getPos()[0] + 1 == monsterPos[0] && this.getPos()[0] - 1 == monsterPos[1]) ||
-        (this.getPos()[0] - 1 == monsterPos[0] && this.getPos()[0] + 1 == monsterPos[1]) ||
-        (this.getPos()[0] + 1 == monsterPos[0] && this.getPos()[0] + 1 == monsterPos[1]) ||
-        (this.getPos()[0]  == monsterPos[0] && this.getPos()[0]  == monsterPos[1])){
+        if ((this.getPos()[0] - 1 == monsterPos[0] && this.getPos()[1]  == monsterPos[1]) ||
+        (this.getPos()[0] + 1 == monsterPos[0] && this.getPos()[1]  == monsterPos[1]) ||
+        (this.getPos()[0]  == monsterPos[0] && this.getPos()[1] + 1 == monsterPos[1]) ||
+        (this.getPos()[0]  == monsterPos[0] && this.getPos()[1] - 1 == monsterPos[1]) ||
+        (this.getPos()[0] - 1 == monsterPos[0] && this.getPos()[1] - 1 == monsterPos[1]) ||
+        (this.getPos()[0] + 1 == monsterPos[0] && this.getPos()[1] - 1 == monsterPos[1]) ||
+        (this.getPos()[0] - 1 == monsterPos[0] && this.getPos()[1] + 1 == monsterPos[1]) ||
+        (this.getPos()[0] + 1 == monsterPos[0] && this.getPos()[1] + 1 == monsterPos[1]) ||
+        (this.getPos()[0]  == monsterPos[0] && this.getPos()[1]  == monsterPos[1])){
                 return true;
             }
         return false;
@@ -565,7 +566,7 @@ public class Hero{
         System.out.print("Enter the location in respect to the target hero, side or below? enter character (s/b): ");
         char pos = sc.next().charAt(0);
         if (pos == 's'){
-            if (heroPos[1] + 1 <= 7 &&map[heroPos[0]][heroPos[1]+1].getType() != 'I' && !w.heroOccupied(heroPos[0], heroPos[1]+1)) {
+            if (heroPos[1] + 1 <= 7 && map[heroPos[0]][heroPos[1]+1].getType() != 'I' && !w.heroOccupied(heroPos[0], heroPos[1]+1)) {
                 System.out.println("Teleported to the Right Successfully.");
                 this.setPos(new int[]{heroPos[0], heroPos[1]+1});
                 success = true;
@@ -577,7 +578,7 @@ public class Hero{
                 System.out.println("Cannot teleport to that position.");
             }
         } else{
-            if (heroPos[0] + 1 >= 0 && map[heroPos[0]+1][heroPos[1]].getType() != 'I' && w.heroOccupied(heroPos[0]+1, heroPos[1])) {
+            if (heroPos[0] + 1 <= 7 && map[heroPos[0]+1][heroPos[1]].getType() != 'I' && w.heroOccupied(heroPos[0]+1, heroPos[1])) {
                 System.out.println("Teleported Below Successfully.");
                 this.setPos(new int[]{heroPos[0]+1, heroPos[1]});
                 success = true;
@@ -591,18 +592,15 @@ public class Hero{
 
     public void recall(){
         // return to their specific Nexus (where they originally spawned)
-        System.out.println(this.getName()+" Recall to Nexus.");
-        int[] pos = getPos();
-        System.out.println("Recall to Pos(7 ," +pos[1]+")");
-        this.setPos(new int[]{7, pos[1]});
-        
+        System.out.println(this.getName()+" recalled to Nexus.");
+        this.setPos(this.birth);
     }
 
     public void respawn(){
         // return to their specific Nexus (where they originally spawned) - change location
         // reset status base on their current lvl
         this.recall();
-        System.out.println("Respawn");
+        System.out.println("Respawned");
         this.HP = this.maxHP;
         this.MP = this.maxMP;
     }

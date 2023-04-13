@@ -22,9 +22,9 @@ public class ValorWorld{
                 else if(j == 2 || j == 5){
                     this.map[i][j] = new Inaccessible();
                 }
-                else if (n <= 2.5) this.map[i][j] = new Plain();
+                else if (n <= 3) this.map[i][j] = new Plain();
                 else if (n <= 5) this.map[i][j] = new Cave();
-                else if (n <= 7.5) this.map[i][j] = new Bush();
+                else if (n <= 7) this.map[i][j] = new Bush();
                 else this.map[i][j] = new Koulou();
             }
         }
@@ -40,42 +40,45 @@ public class ValorWorld{
 
     public boolean heroOccupied(int i, int j){
         for (Hero h : this.player.getHeros()){
-            if (h.getPos()[0] == i && h.getPos()[0] == j){
+            if (h.getPos()[0] == i && h.getPos()[1] == j){
                 return true;
             }
         }
         return false;
     }
 
-    public void respond(Monster h){
-        int[] pos = h.getPos();
-        
+    public void generateNewMonsters(){
+        this.mf.addMonsters();
+    }
+
+    public void respond(Monster m){
+        int[] pos = m.getPos();
         Grid g = this.map[pos[0]][pos[1]];
         char type = g.getType();
         switch(type){
             case 'N':
                 Nexus n = (Nexus)g;
-                n.effect(h);
+                n.effect(m);
                 break;
             case 'I':
                 Inaccessible i = (Inaccessible)g;
-                i.effect(h);
+                i.effect(m);
                 break;
             case 'P':
                 Plain plain = (Plain)g;
-                plain.effect(h);
+                plain.effect(m);
                 break;
             case 'B':
                 Bush b = (Bush)g;
-                b.effect(h);
+                b.effect(m);
                 break;
             case 'C':
                 Cave c = (Cave)g;
-                c.effect(h);
+                c.effect(m);
                 break;
             case 'K':
                 Koulou k = (Koulou)g;
-                k.effect(h);
+                k.effect(m);
                 break;
         }
     }
@@ -89,6 +92,8 @@ public class ValorWorld{
             case 'N':
                 Nexus n = (Nexus)g;
                 n.effect(h);
+                Market mar = new Market();
+                mar.runMarket(h);
                 break;
             case 'I':
                 Inaccessible i = (Inaccessible)g;
@@ -144,12 +149,12 @@ public class ValorWorld{
             for (int j=0; j<size; j++){
                 String monsterName = "";
                 String heroName = "";
-                for (int k=0; k<3; k++){
+                for (int k=0; k<this.player.getSize(); k++){
                     if(this.player.getHero(k).getPos() == null){break;}
                     if (this.player.getHero(k).getPos()[0] == i && this.player.getHero(k).getPos()[1] == j) {
                         heroName = this.player.getHero(k).getSymbol()+"";break;
                     }}
-                    for (int k=0; k<3; k++){
+                    for (int k=0; k<this.mf.getSize(); k++){
                     if(this.mf.getMonster(k).getPos() == null){break;}
                     if (this.mf.getMonster(k).getPos()[0] == i && this.mf.getMonster(k).getPos()[1] == j){
                         monsterName = this.mf.getMonster(k).getSymbol()+"";break;

@@ -5,7 +5,7 @@
  * World responds to the move
  * 
  */
-public class GameControl{
+public class MHGame{
     private Player p;
     private MonstersInfo mf;
     private ValorWorld w;
@@ -24,15 +24,16 @@ public class GameControl{
                 System.out.println(h.getName() + " 's turn.");
                 move = h.move(this.w, this.mf, this.p.getHeroFact());
                 this.w.respond(h);
-                if (p.getWinStatus()){
+                if (p.checkWin()){
                     System.out.println("You won! ");
+                    System.out.println(w);
                     break;
                 }
                 if (move == 'q'){
                     break;
                 }
             }
-            if (move == 'q' || p.getWinStatus()){
+            if (move == 'q' || p.checkWin()){
                 break;
             }
         }
