@@ -49,6 +49,7 @@ public class ValorWorld{
 
     public void respond(Monster h){
         int[] pos = h.getPos();
+        
         Grid g = this.map[pos[0]][pos[1]];
         char type = g.getType();
         switch(type){

@@ -56,6 +56,9 @@ public class Hero{
         this.strengthV = strength;
         this.dexterityV = dexterity;
         this.agilityV = agility;
+        this.curDtrengthV = strength;
+        this.curDexterityV = dexterity;
+        this.curAgilityV = agility;
         this.gold = m;
         this.defense = 0;
         this.dodge = this.agilityV*0.001;
@@ -130,10 +133,6 @@ public class Hero{
 
     public void setCurDexterityV(){
         this.curDexterityV = this.dexterityV*1.1;
-    }
-
-    public void setCurDefense(){
-        this.curDefense = this.defense*1.1;
     }
 
     public void setCurDtrengthV(){
@@ -405,15 +404,15 @@ public class Hero{
             }
             if (pt.equals("Strength")) {
                 System.out.println("Your strength gained " + p.getHeal()); 
-                this.strengthV += p.getHeal();
+                this.curDtrengthV += p.getHeal();
             }
             if (pt.equals("Dexterity")) {
                 System.out.println("Your dexterity gained " + p.getHeal()); 
-                this.dexterityV += p.getHeal();
+                this.curDexterityV += p.getHeal();
             }
             if (pt.equals("Agility")) {
                 System.out.println("Your agility gained " + p.getHeal()); 
-                this.agilityV += p.getHeal();
+                this.curAgilityV += p.getHeal();
             }
             if (pt.equals("Defense")) {
                 System.out.println("Your defense gained " + p.getHeal()); 
@@ -436,7 +435,7 @@ public class Hero{
             
             Weapon w = this.inventory.getMainhand();
             Monster m = mf.getMonster(monsterID);
-            double damage = (w.getDamage() + this.strengthV) * 0.05;
+            double damage = (w.getDamage() + this.curDtrengthV) * 0.05;
 
             // attack
             System.out.println(this.name + " have attacked monster" + m.getName() + " with " + w.getName());
@@ -464,7 +463,7 @@ public class Hero{
             
             Spell s = this.chooseSpell();
             Monster m = mf.getMonster(monsterID);
-            double damage = (s.getDamage() + this.dexterityV / 10000 * s.getDamage());
+            double damage = (s.getDamage() + this.curDexterityV / 10000 * s.getDamage());
 
             // cast a spell
             System.out.println(this.name + " have casted sepll " + s.getName() + " on monster " + m.getName());
@@ -506,7 +505,7 @@ public class Hero{
 
     public void displayHero(){
         System.out.println("Name: " + this.getName());
-        System.out.println("Level: " + this.level + " | " + "Health: " + this.HP + " | " + "Mana: " + this.MP + " | " + "Strength: " + this.strengthV + " | " + "Defense: " + this.defense + " | " + "Agility: " + this.agilityV + " | " + "Dexterity: " + this.dexterityV + " | " + "Money: " + this.gold + " | " + "Exp: " + this.exp + " | " + "Status: " + this.status + " | ");
+        System.out.println("Level: " + this.level + " | " + "Health: " + this.HP + " | " + "Mana: " + this.MP + " | " + "Strength: " + this.curDtrengthV + " | " + "Defense: " + this.defense + " | " + "Agility: " + this.curAgilityV + " | " + "Dexterity: " + this.curDexterityV + " | " + "Money: " + this.gold + " | " + "Exp: " + this.exp + " | " + "Status: " + this.status + " | ");
     }
 
     public void displayInventory(){

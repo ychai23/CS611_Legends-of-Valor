@@ -29,14 +29,15 @@ public class ValorGame {
 
             for (Monster m : this.mf.getMonsters()){
                 m.move(this.map, this.mf, this.volarPlayer.getHeroFact());
-                this.map.respond(m);
+
+                
                 if (m.checkWin()){
                     System.out.println("Monster won! ");
                     break;
-                }   
+                }   this.map.respond(m);
             }
             
-            if (move == 'q' || this.volarPlayer.checkWin()){
+            if (move == 'q' || this.volarPlayer.checkWin()||this.mf.checkWin()){
                 break;
             }
         }

@@ -48,6 +48,9 @@ public class Monster{
         this.baseDam = baseDam;
         this.defenseV = defenseV;
         this.dodgeV = dodgeV;
+        this.curBaseDam = baseDam;
+        this.curDefenseV = defenseV;
+        this.curDodgeV = dodgeV;
         this.dodgeC = dodgeV*0.01;
         this.status = 1;
     }
@@ -102,7 +105,7 @@ public class Monster{
         
         for(Hero h : hf.getHeros()){
             if(this.inRange(w, h)){
-                double HP = h.receiveMonsterDamage(this.baseDam*0.01);
+                double HP = h.receiveMonsterDamage(this.curBaseDam*0.01);
                 System.out.println("Monster "+ this.getSymbol()+ " Attacked "+h.getSymbol()+" Deal Damage "+ HP);
                 if (HP<=0){
                     System.out.println(h.getName() + " has been defeated, fainted");
@@ -127,8 +130,8 @@ public class Monster{
     public boolean inRange(ValorWorld w, Hero h){
         // determine if a monster is in range (neighbor grids of the hero)
         int[] monsterPos = h.getPos();
-        System.out.println("Hero POS:"+ monsterPos[0]+" " +monsterPos[1]);
-        System.out.println("Monster POS: "+getPos()[0] +" "+ getPos()[1]);
+        // System.out.println("Hero POS:"+ monsterPos[0]+" " +monsterPos[1]);
+        // System.out.println("Monster POS: "+getPos()[0] +" "+ getPos()[1]);
         if ((this.getPos()[0] - 1 == monsterPos[0] && this.getPos()[0]  == monsterPos[1]) ||
             (this.getPos()[0] + 1 == monsterPos[0] && this.getPos()[0]  == monsterPos[1]) ||
             (this.getPos()[0]  == monsterPos[0] && this.getPos()[0] + 1 == monsterPos[1]) ||
@@ -180,7 +183,7 @@ public class Monster{
         int idx = rand.nextInt(size);
         Hero h = hf.getHeros().get(idx);
 
-        double HP = h.receiveMonsterDamage(this.baseDam*0.01);
+        double HP = h.receiveMonsterDamage(this.curBaseDam*0.01);
         if (HP<=0){
             System.out.println(h.getName() + " has been defeated, fainted");
             h.respawn();
@@ -189,22 +192,22 @@ public class Monster{
 
     public void skillLoss(char skill){
         if (skill == 'i') {
-            this.baseDam *= 0.9;
+            this.curBaseDam *= 0.9;
             System.out.println(this.getName() + "'s base damage has been reduced by 10%");
         }
         if (skill == 'f') {
-            this.defenseV *= 0.9;
+            this.curDefenseV *= 0.9;
             System.out.println(this.getName() + "'s defense has been reduced by 10%");
         }
         if (skill == 'l') {
-            this.dodgeV *= 0.9;
+            this.curDodgeV *= 0.9;
             System.out.println(this.getName() + "'s dodge value has been reduced by 10%");
         }
     }
 
     public void display(){
         System.out.println("Name: " + this.getName());
-        System.out.println("Level: " + this.level + " | " + "Health: " + this.HP + " | " + "Strength: " + this.baseDam + " | " + "Defense: " + this.defenseV + " | " + "Agility: " + this.dodgeV + " | " + "Status: " + this.status + " | ");
+        System.out.println("Level: " + this.level + " | " + "Health: " + this.HP + " | " + "Strength: " + this.curBaseDam + " | " + "Defense: " + this.curDefenseV + " | " + "Agility: " + this.curDodgeV + " | " + "Status: " + this.status + " | ");
     }
 
 }
