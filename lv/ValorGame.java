@@ -21,11 +21,21 @@ public class ValorGame {
                 if (this.volarPlayer.checkWin()){
                     System.out.println("You won! ");
                     break;
-                }
+                }   
                 if (move == 'q'){
                     break;
                 }
             }
+
+            for (Monster m : this.mf.getMonsters()){
+                m.move(this.map, this.mf, this.volarPlayer.getHeroFact());
+                this.map.respond(m);
+                if (m.checkWin()){
+                    System.out.println("Monster won! ");
+                    break;
+                }   
+            }
+            
             if (move == 'q' || this.volarPlayer.checkWin()){
                 break;
             }

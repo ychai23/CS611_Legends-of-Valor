@@ -1,5 +1,8 @@
 import java.util.Random;
 
+import javax.lang.model.util.ElementScanner14;
+import javax.management.monitor.MonitorSettingException;
+
 /*
  * Monster class that contains all the actions a monster can take during the game
  * 
@@ -11,8 +14,15 @@ public class Monster{
     protected int level;
     protected double HP;
     protected double baseDam;
+    protected double curBaseDam;
+
     protected double defenseV;
+    protected double curDefenseV;
+
+
     protected double dodgeV;
+    protected double curDodgeV;
+
     protected double dodgeC;
     protected String symbol;
     protected int status;
@@ -65,6 +75,74 @@ public class Monster{
     public void setPos(int[] pos){
         this.position = pos;
     }
+
+    public void setCurBaseDamage(){
+        this.curBaseDam = baseDam*1.1;
+    }
+    public void setCurDefense(){
+        this.curDefenseV = defenseV*1.1;
+    }
+    public void setCurDodgeV(){
+        this.curDodgeV = dodgeV*1.1;
+    }
+
+    public void clear(){
+        this.curBaseDam = this.baseDam;
+        this.curDefenseV = this.defenseV;
+        this.curDodgeV = this.dodgeV;
+    }
+
+    public void move(ValorWorld w, MonstersInfo mf, HerosInfo hf){
+        Grid[][] map = w.getMap();
+        int size = w.getSize();
+        if(this.getPos() == null){return;}
+        int x = this.getPos()[0];
+        int y = this.getPos()[1];
+        boolean s = false;
+        
+        for(Hero h : hf.getHeros()){
+            if(this.inRange(w, h)){
+                double HP = h.receiveMonsterDamage(this.baseDam*0.01);
+                System.out.println("Monster "+ this.getSymbol()+ " Attacked "+h.getSymbol()+" Deal Damage "+ HP);
+                if (HP<=0){
+                    System.out.println(h.getName() + " has been defeated, fainted");
+                    h.respawn();
+                }
+                return;
+            }
+        }
+
+
+        this.setPos(new int[] {x+1, y});
+    }
+
+    public boolean checkWin(){
+        if(getPos() == null){return false;}
+        int x = this.getPos()[0];
+        int y = this.getPos()[1];
+        if(x== 7){return true;}
+        return false;
+    }
+
+    public boolean inRange(ValorWorld w, Hero h){
+        // determine if a monster is in range (neighbor grids of the hero)
+        int[] monsterPos = h.getPos();
+        System.out.println("Hero POS:"+ monsterPos[0]+" " +monsterPos[1]);
+        System.out.println("Monster POS: "+getPos()[0] +" "+ getPos()[1]);
+        if ((this.getPos()[0] - 1 == monsterPos[0] && this.getPos()[0]  == monsterPos[1]) ||
+            (this.getPos()[0] + 1 == monsterPos[0] && this.getPos()[0]  == monsterPos[1]) ||
+            (this.getPos()[0]  == monsterPos[0] && this.getPos()[0] + 1 == monsterPos[1]) ||
+            (this.getPos()[0]  == monsterPos[0] && this.getPos()[0] + 1 == monsterPos[1]) ||
+            (this.getPos()[0] - 1 == monsterPos[0] && this.getPos()[0] - 1 == monsterPos[1]) ||
+            (this.getPos()[0] + 1 == monsterPos[0] && this.getPos()[0] - 1 == monsterPos[1]) ||
+            (this.getPos()[0] - 1 == monsterPos[0] && this.getPos()[0] + 1 == monsterPos[1]) ||
+            (this.getPos()[0] + 1 == monsterPos[0] && this.getPos()[0] + 1 == monsterPos[1]) ||
+            (this.getPos()[0]  == monsterPos[0] && this.getPos()[0]  == monsterPos[1])){
+                return true;
+            }
+        return false;
+    }
+
 
     public double receiveWeaponDamage(double damage){
         // can dodge

@@ -1,12 +1,20 @@
-public class Bush extends Grid implements ValorGrid{
+public class Bush extends Grid{
     protected char type = 'B';
 
     public char getType(){
         return this.type;
     }
 
-    @Override
-    public void effect() {
 
+    public void effect(Hero h) {
+        System.out.println(h.getSymbol()+" steped on Bush. Buff on Dexterity.");
+        h.clear();
+        h.setCurDexterityV();
+    }
+
+    public void effect(Monster m){
+        System.out.println(m.getSymbol()+" steped on Bush. Buff on Defense.");
+        m.clear();
+        m.setCurDefense();
     }
 }

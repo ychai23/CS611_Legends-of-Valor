@@ -44,12 +44,15 @@ public class MonstersInfo{
         return this.monsters.isEmpty();
     }
 
-    public void replaceMonster(int idx){
+    public void replaceMonster(int idx, int col, int level){
         Random rand = new Random();
         int i = rand.nextInt(2) + 1;
-        Monster m = mr.getMonster(monsterLvl, i);
+        Monster m = mr.getMonster(level, i);
+        m.setPos(new int[]{0, col});
+        
         m.setSymbol("M" + i);
         this.monsters.set(idx, m);
+        
     }
 
     public void removeMonster(int idx){

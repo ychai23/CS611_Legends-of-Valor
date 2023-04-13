@@ -1,12 +1,15 @@
-public class Plain extends Grid implements ValorGrid{
+public class Plain extends Grid {
     protected char type = 'P';
 
     public char getType(){
         return this.type;
     }
 
-    @Override
-    public void effect() {
+    public void effect(Hero h) {
+        h.clear();
+    }
 
+    public void effect(Monster m){
+        m.clear();
     }
 }

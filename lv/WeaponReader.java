@@ -9,7 +9,7 @@ public class WeaponReader {
     public ArrayList<Weapon> readWeapons(int type){
         ArrayList<Weapon> allWeapons = new ArrayList<Weapon>();
         String line = "";
-        String filename = "./ConfigFiles/Weaponry.txt";
+        String filename = "lv/ConfigFiles/Weaponry.txt";
 
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             br.readLine(); // this will read the first line
