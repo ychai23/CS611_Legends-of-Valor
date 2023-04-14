@@ -12,9 +12,9 @@ public class MonsterReader {
         ArrayList<Monster> allMonsters = new ArrayList<Monster>();
         String line = "";
         String filename = "";
-        if (type==1) filename = "lv/ConfigFiles/Dragons.txt";
-        if (type==2) filename = "lv/ConfigFiles/Exoskeletons.txt";
-        else filename = "lv/ConfigFiles/Spirits.txt";
+        if (type==1) filename = "ConfigFiles/Dragons.txt";
+        if (type==2) filename = "ConfigFiles/Exoskeletons.txt";
+        else filename = "ConfigFiles/Spirits.txt";
 
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             br.readLine(); // this will read the first line

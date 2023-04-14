@@ -1,3 +1,12 @@
+# CS611-<Assignment 4>
+## <Lengend of Valor>
+---------------------------------------------------------------------------
+<Yuanming Chai>
+<jchai23@bu.edu>
+<U43949722>
+
+<Zhangde Zhong>
+<songzhangd@bu.edu>
 <U06937573>
 
 ## Files
@@ -646,7 +655,7 @@ Sehanine_Moonbow have attacked monsterdefault with Sword
 Weapon dealt damage of 77.5 to default
 default has fainted.
 N - N - N  N - N - N  I - I - I  N - N - N  N - N - N  I - I - I  N - N - N  N - N - N
-|       |  | M1    |  |       |  |       |  |       |  |       |  |       |  |       |
+|       |  | M0    |  |       |  |       |  |       |  |       |  |       |  |       |
 N - N - N  N - N - N  I - I - I  N - N - N  N - N - N  I - I - I  N - N - N  N - N - N
 K - K - K  K - K - K  I - I - I  C - C - C  P - P - P  I - I - I  P - P - P  C - C - C
 |       |  | M3    |  |       |  |       |  | M4    |  |       |  |       |  | M5    |
@@ -691,7 +700,7 @@ Enter the hero ID you want to teleport next to: 0
 Enter the location in respect to the target hero, side or below? enter character (s/b): s
 Teleported to the Right Successfully.
 N - N - N  N - N - N  I - I - I  N - N - N  N - N - N  I - I - I  N - N - N  N - N - N
-|       |  | M1    |  |       |  |       |  |       |  |       |  |       |  |       |
+|       |  | M0    |  |       |  |       |  |       |  |       |  |       |  |       |
 N - N - N  N - N - N  I - I - I  N - N - N  N - N - N  I - I - I  N - N - N  N - N - N
 K - K - K  K - K - K  I - I - I  C - C - C  P - P - P  I - I - I  P - P - P  C - C - C
 |       |  | M3    |  |       |  |       |  | M4    |  |       |  |       |  | M5    |
@@ -742,7 +751,7 @@ N - N - N  N - N - N  I - I - I  N - N - N  N - N - N  I - I - I  N - N - N  N -
 |       |  |       |  |       |  |       |  |       |  |       |  |       |  |       |
 N - N - N  N - N - N  I - I - I  N - N - N  N - N - N  I - I - I  N - N - N  N - N - N
 K - K - K  K - K - K  I - I - I  C - C - C  P - P - P  I - I - I  P - P - P  C - C - C
-|       |  | M1    |  |       |  |       |  |       |  |       |  |       |  |       |
+|       |  | M0    |  |       |  |       |  |       |  |       |  |       |  |       |
 K - K - K  K - K - K  I - I - I  C - C - C  P - P - P  I - I - I  P - P - P  C - C - C
 K - K - K  K - K - K  I - I - I  B - B - B  P - P - P  I - I - I  P - P - P  C - C - C
 |       |  | M3    |  |       |  |       |  | M4    |  |       |  |       |  | M5    |
@@ -785,7 +794,7 @@ N - N - N  N - N - N  I - I - I  N - N - N  N - N - N  I - I - I  N - N - N  N -
 |       |  |       |  |       |  |       |  |       |  |       |  |       |  |       |
 N - N - N  N - N - N  I - I - I  N - N - N  N - N - N  I - I - I  N - N - N  N - N - N
 K - K - K  K - K - K  I - I - I  C - C - C  P - P - P  I - I - I  P - P - P  C - C - C
-|       |  | M1    |  |       |  |       |  |       |  |       |  |       |  |       |
+|       |  | M0    |  |       |  |       |  |       |  |       |  |       |  |       |
 K - K - K  K - K - K  I - I - I  C - C - C  P - P - P  I - I - I  P - P - P  C - C - C
 K - K - K  K - K - K  I - I - I  B - B - B  P - P - P  I - I - I  P - P - P  C - C - C
 |       |  | M3    |  |       |  |       |  | M4    |  |       |  |       |  | M5    |
@@ -827,7 +836,7 @@ N - N - N  N - N - N  I - I - I  N - N - N  N - N - N  I - I - I  N - N - N  N -
 |       |  |       |  |       |  |       |  |       |  |       |  |       |  |       |
 N - N - N  N - N - N  I - I - I  N - N - N  N - N - N  I - I - I  N - N - N  N - N - N
 K - K - K  K - K - K  I - I - I  C - C - C  P - P - P  I - I - I  P - P - P  C - C - C
-|       |  | M1    |  |       |  |       |  |       |  |       |  |       |  |       |
+|       |  | M0    |  |       |  |       |  |       |  |       |  |       |  |       |
 K - K - K  K - K - K  I - I - I  C - C - C  P - P - P  I - I - I  P - P - P  C - C - C
 K - K - K  K - K - K  I - I - I  B - B - B  P - P - P  I - I - I  P - P - P  C - C - C
 |       |  | M3    |  |       |  |       |  | M4    |  |       |  |       |  | M5    |
@@ -865,7 +874,7 @@ E/e: teleport
 R/r: recall
 
 Enter your move for the hero: w
-M1 steped on Koulou. Buff on Base Damage.
+M0 steped on Koulou. Buff on Base Damage.
 M1 steped on Bush. Buff on Dodge.
 M2 attacked H2
 Garl_GlittergoldH2 received 1.5 damage from the monster.
@@ -882,7 +891,7 @@ K - K - K  K - K - K  I - I - I  C - C - C  P - P - P  I - I - I  P - P - P  C -
 |       |  |       |  |       |  |       |  |       |  |       |  |       |  |       |
 K - K - K  K - K - K  I - I - I  C - C - C  P - P - P  I - I - I  P - P - P  C - C - C
 K - K - K  K - K - K  I - I - I  B - B - B  P - P - P  I - I - I  P - P - P  C - C - C
-|       |  | M1    |  |       |  |       |  |       |  |       |  |     H2|  | M5    |
+|       |  | M0    |  |       |  |       |  |       |  |       |  |     H2|  | M5    |
 K - K - K  K - K - K  I - I - I  B - B - B  P - P - P  I - I - I  P - P - P  C - C - C
 C - C - C  P - P - P  I - I - I  P - P - P  P - P - P  I - I - I  K - K - K  P - P - P
 |     H0|  |     H1|  |       |  |       |  | M4    |  |       |  |       |  | M2    |
@@ -925,7 +934,7 @@ K - K - K  K - K - K  I - I - I  C - C - C  P - P - P  I - I - I  P - P - P  C -
 |       |  |       |  |       |  |       |  |       |  |       |  |       |  |       |
 K - K - K  K - K - K  I - I - I  C - C - C  P - P - P  I - I - I  P - P - P  C - C - C
 K - K - K  K - K - K  I - I - I  B - B - B  P - P - P  I - I - I  P - P - P  C - C - C
-|     H0|  | M1    |  |       |  |       |  |       |  |       |  |     H2|  | M5    |
+|     H0|  | M0    |  |       |  |       |  |       |  |       |  |     H2|  | M5    |
 K - K - K  K - K - K  I - I - I  B - B - B  P - P - P  I - I - I  P - P - P  C - C - C
 C - C - C  P - P - P  I - I - I  P - P - P  P - P - P  I - I - I  K - K - K  P - P - P
 |       |  |     H1|  |       |  |       |  | M4    |  |       |  |       |  | M2    |
@@ -968,7 +977,7 @@ K - K - K  K - K - K  I - I - I  C - C - C  P - P - P  I - I - I  P - P - P  C -
 |       |  |       |  |       |  |       |  |       |  |       |  |       |  |       |
 K - K - K  K - K - K  I - I - I  C - C - C  P - P - P  I - I - I  P - P - P  C - C - C
 K - K - K  K - K - K  I - I - I  B - B - B  P - P - P  I - I - I  P - P - P  C - C - C
-|     H0|  | M1  H1|  |       |  |       |  |       |  |       |  |     H2|  | M5    |
+|     H0|  | M0  H1|  |       |  |       |  |       |  |       |  |     H2|  | M5    |
 K - K - K  K - K - K  I - I - I  B - B - B  P - P - P  I - I - I  P - P - P  C - C - C
 C - C - C  P - P - P  I - I - I  P - P - P  P - P - P  I - I - I  K - K - K  P - P - P
 |       |  |       |  |       |  |       |  | M4    |  |       |  |       |  | M2    |
@@ -1012,7 +1021,7 @@ K - K - K  K - K - K  I - I - I  C - C - C  P - P - P  I - I - I  P - P - P  C -
 |       |  |       |  |       |  |       |  |       |  |       |  |     H2|  |       |
 K - K - K  K - K - K  I - I - I  C - C - C  P - P - P  I - I - I  P - P - P  C - C - C
 K - K - K  K - K - K  I - I - I  B - B - B  P - P - P  I - I - I  P - P - P  C - C - C
-|     H0|  | M1  H1|  |       |  |       |  |       |  |       |  |       |  | M5    |
+|     H0|  | M0  H1|  |       |  |       |  |       |  |       |  |       |  | M5    |
 K - K - K  K - K - K  I - I - I  B - B - B  P - P - P  I - I - I  P - P - P  C - C - C
 C - C - C  P - P - P  I - I - I  P - P - P  P - P - P  I - I - I  K - K - K  P - P - P
 |       |  |       |  |       |  |       |  | M4    |  |       |  |       |  | M2    |
@@ -1032,7 +1041,7 @@ N - N - N  N - N - N  I - I - I  N - N - N  N - N - N  I - I - I  N - N - N  N -
 
 M1 attacked H0
 Sehanine_MoonbowH0 received 4.9995 damage from the monster.
-M1 steped on Koulou. Buff on Base Damage.
+M0 steped on Koulou. Buff on Base Damage.
 M3 attacked H0
 Sehanine_MoonbowH0 received 0.0 damage from the monster.
 M3 steped on Koulou. Buff on Base Damage.
@@ -1049,7 +1058,7 @@ K - K - K  K - K - K  I - I - I  C - C - C  P - P - P  I - I - I  P - P - P  C -
 |       |  | M6    |  |       |  |       |  | M7    |  |       |  |     H2|  |       |
 K - K - K  K - K - K  I - I - I  C - C - C  P - P - P  I - I - I  P - P - P  C - C - C
 K - K - K  K - K - K  I - I - I  B - B - B  P - P - P  I - I - I  P - P - P  C - C - C
-|     H0|  | M1  H1|  |       |  |       |  |       |  |       |  |       |  | M5    |
+|     H0|  | M0  H1|  |       |  |       |  |       |  |       |  |       |  | M5    |
 K - K - K  K - K - K  I - I - I  B - B - B  P - P - P  I - I - I  P - P - P  C - C - C
 C - C - C  P - P - P  I - I - I  P - P - P  P - P - P  I - I - I  K - K - K  P - P - P
 |       |  |       |  |       |  |       |  |       |  |       |  |       |  |       |
@@ -1092,7 +1101,7 @@ K - K - K  K - K - K  I - I - I  C - C - C  P - P - P  I - I - I  P - P - P  C -
 |     H0|  | M6    |  |       |  |       |  | M7    |  |       |  |     H2|  |       |
 K - K - K  K - K - K  I - I - I  C - C - C  P - P - P  I - I - I  P - P - P  C - C - C
 K - K - K  K - K - K  I - I - I  B - B - B  P - P - P  I - I - I  P - P - P  C - C - C
-|       |  | M1  H1|  |       |  |       |  |       |  |       |  |       |  | M5    |
+|       |  | M0  H1|  |       |  |       |  |       |  |       |  |       |  | M5    |
 K - K - K  K - K - K  I - I - I  B - B - B  P - P - P  I - I - I  P - P - P  C - C - C
 C - C - C  P - P - P  I - I - I  P - P - P  P - P - P  I - I - I  K - K - K  P - P - P
 |       |  |       |  |       |  |       |  |       |  |       |  |       |  |       |
@@ -1135,7 +1144,7 @@ K - K - K  K - K - K  I - I - I  C - C - C  P - P - P  I - I - I  P - P - P  C -
 |     H0|  | M6  H1|  |       |  |       |  | M7    |  |       |  |     H2|  |       |
 K - K - K  K - K - K  I - I - I  C - C - C  P - P - P  I - I - I  P - P - P  C - C - C
 K - K - K  K - K - K  I - I - I  B - B - B  P - P - P  I - I - I  P - P - P  C - C - C
-|       |  | M1    |  |       |  |       |  |       |  |       |  |       |  | M5    |
+|       |  | M0    |  |       |  |       |  |       |  |       |  |       |  | M5    |
 K - K - K  K - K - K  I - I - I  B - B - B  P - P - P  I - I - I  P - P - P  C - C - C
 C - C - C  P - P - P  I - I - I  P - P - P  P - P - P  I - I - I  K - K - K  P - P - P
 |       |  |       |  |       |  |       |  |       |  |       |  |       |  |       |
@@ -1174,9 +1183,9 @@ Would you like Garl_GlittergoldH2 to enter the market? y/n: w
 
 Garl_GlittergoldH2 leaving the market...
 H2 Garl_Glittergold has reached monster's Nexus. You won!
-M1 attacked H0
+M0 attacked H0
 Sehanine_MoonbowH0 received 4.9995 damage from the monster.
-M1 steped on Koulou. Buff on Base Damage.
+M0 steped on Koulou. Buff on Base Damage.
 Monster won!
 N - N - N  N - N - N  I - I - I  N - N - N  N - N - N  I - I - I  N - N - N  N - N - N
 |       |  |       |  |       |  |       |  |       |  |       |  |     H2|  | M8    |
@@ -1185,7 +1194,7 @@ K - K - K  K - K - K  I - I - I  C - C - C  P - P - P  I - I - I  P - P - P  C -
 |     H0|  | M6  H1|  |       |  |       |  | M7    |  |       |  |       |  |       |
 K - K - K  K - K - K  I - I - I  C - C - C  P - P - P  I - I - I  P - P - P  C - C - C
 K - K - K  K - K - K  I - I - I  B - B - B  P - P - P  I - I - I  P - P - P  C - C - C
-|       |  | M1    |  |       |  |       |  |       |  |       |  |       |  | M5    |
+|       |  | M0    |  |       |  |       |  |       |  |       |  |       |  | M5    |
 K - K - K  K - K - K  I - I - I  B - B - B  P - P - P  I - I - I  P - P - P  C - C - C
 C - C - C  P - P - P  I - I - I  P - P - P  P - P - P  I - I - I  K - K - K  P - P - P
 |       |  |       |  |       |  |       |  |       |  |       |  |       |  |       |

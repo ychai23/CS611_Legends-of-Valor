@@ -56,7 +56,7 @@ public class MonstersInfo{
         Monster m = mr.getMonster(level, i);
         m.setPos(new int[]{0, col});
         
-        m.setSymbol("M" + i);
+        m.setSymbol("M" + idx);
         this.monsters.set(idx, m);
     }
 
