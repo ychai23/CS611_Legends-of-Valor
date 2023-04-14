@@ -10,7 +10,7 @@ public class PotionReader {
     public ArrayList<Potion> readPotions(int type){
         ArrayList<Potion> allPotions = new ArrayList<Potion>();
         String line = "";
-        String filename = "./ConfigFiles/Potions.txt";
+        String filename = "lv/ConfigFiles/Potions.txt";
 
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             br.readLine(); // this will read the first line

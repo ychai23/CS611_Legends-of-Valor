@@ -12,9 +12,9 @@ public class HeroReader {
         ArrayList<Hero> allHeros = new ArrayList<Hero>();
         String line = "";
         String filename = "";
-        if (type==1) filename = "ConfigFiles/Warriors.txt";
-        if (type==2) filename = "ConfigFiles/Sorcerers.txt";
-        else filename = "ConfigFiles/Paladins.txt";
+        if (type==1) filename = "lv/ConfigFiles/Warriors.txt";
+        if (type==2) filename = "lv/ConfigFiles/Sorcerers.txt";
+        else filename = "lv/ConfigFiles/Paladins.txt";
 
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             br.readLine(); // this will read the first line
